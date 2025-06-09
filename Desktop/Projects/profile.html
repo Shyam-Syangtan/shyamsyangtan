@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shyam Syangtan — Profile</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="profile.css"/>
+</head>
+<body>
+
+  <!-- Sticky Navbar (same as index.html) -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="home.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png"
+           alt="Logo" class="logo" /></a>
+      <a href="home.html" class="nav-link">Home</a>
+      <a href="#" class="nav-link">Learn</a>
+      <a href="index.html" class="nav-link active">Find a teacher</a>
+      <a href="#" class="nav-link">Group Class</a>
+      <a href="#" class="nav-link">Community</a>
+      <a href="#" class="nav-link">More</a>
+    </div>
+    <div class="navbar-right">
+      <input type="text" placeholder="Search..." class="nav-search"/>
+      <div class="nav-avatar"></div>
+    </div>
+  </nav>
+
+  <div class="profile-container">
+    <!-- Header -->
+    <section class="profile-header">
+      <img id="profile-avatar" class="avatar-large" src="profile.jpg" alt="Shyam Syangtan"/>
+      <div class="profile-info">
+        <h1 id="profile-name"></h1>
+        <p id="profile-role" class="subtle"></p>
+        <p id="profile-status" class="status"></p>
+        <div id="profile-langs" class="tutor-langs"></div>
+        <blockquote id="profile-tagline"></blockquote>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <ul class="profile-tabs">
+      <li class="active">About Me</li>
+      <li>Lessons</li>
+      <li>Availability</li>
+      <li>Reviews</li>
+    </ul>
+
+    <!-- Body: main + aside -->
+    <div class="profile-body">
+      <main class="profile-main">
+        <section id="aboutMe" class="about-me">
+          <h2>About Me</h2>
+          <p id="profile-description"></p>
+        </section>
+
+        <section id="lessons" class="lessons-list">
+          <h2>English Lessons</h2>
+          <div class="lesson-item">
+            <div class="lesson-info">
+              <strong>Conversation Practice</strong>
+              <span>A1–C2 · 1,116 lessons completed</span>
+            </div>
+            <div class="lesson-rate">
+              <span class="big-price">USD 7.00+</span>
+              <small>15% off package</small>
+            </div>
+          </div>
+          <div class="lesson-item">
+            <div class="lesson-info">
+              <strong>Custom request</strong>
+              <span>A1–C2 · 47 lessons completed</span>
+            </div>
+            <div class="lesson-rate">
+              <span class="big-price">USD 5.00</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="availability" class="availability-grid">
+          <h2>Availability</h2>
+          <!-- generate rows/cols as needed -->
+        </section>
+
+        <section id="reviews" class="reviews-list">
+          <h2>556 Reviews</h2>
+          <!-- individual .review-card blocks -->
+        </section>
+      </main>
+
+      <aside class="profile-aside">
+        <div class="video-card"><iframe id="intro-video" src="" allowfullscreen></iframe></div>
+        <div class="sidebar-lessons">
+          <h3>Lessons</h3>
+          <p><strong>Rate:</strong> <span id="profile-price"></span></p>
+          <p><strong>Taught:</strong> <span id="profile-lessons"></span></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="profile.js"></script>
+</body>
+</html>
