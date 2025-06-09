@@ -5,12 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Indian Language Tutors</title>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- 1. First load Supabase from CDN -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+    window.createClient = createClient;
+    console.log('📚 Supabase JS library loaded');
+  </script>
+  
+  <!-- 2. Then load your Supabase client file -->
+  <script type="module" src="supabaseClient.js"></script>
+  
+  <!-- 3. Then load auth.js -->
+  <script type="module" src="auth.js"></script>
+  
+  <!-- 4. Finally load your main script -->
+  <script type="module" src="script.js"></script>
 </head>
 <body>
-
-  <!-- ✅ Sticky Navbar -->
+  <!-- Navbar section -->
   <nav class="navbar">
     <div class="navbar-left">
       <a href="home.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png" alt="Logo" class="logo" /></a>
@@ -23,18 +36,17 @@
     </div>
     <div class="navbar-right">
       <input type="text" placeholder="Search..." class="nav-search"/>
-       <div id="nav-auth">
-  <a href="login.html" class="nav-link" id="login-btn">Log in</a>
-  <div class="user-initial-container hidden" id="user-initial-container">
-    <div class="user-initial" id="user-initial">U</div>
-    <div class="dropdown hidden" id="user-dropdown">
-      <a href="profile.html">My Profile</a>
-      <a href="#" id="logout-btn">Log out</a>
-    </div>
-  </div>
-</div>
-
-
+      <!-- IMPORTANT: Auth UI elements -->
+      <div id="nav-auth">
+        <a href="#" class="nav-link" id="login-btn">Log in</a>
+        <div class="user-initial-container hidden" id="user-initial-container">
+          <div class="user-initial" id="user-initial">U</div>
+          <div class="dropdown hidden" id="user-dropdown">
+            <a href="profile.html">My Profile</a>
+            <a href="#" id="logout-btn">Log out</a>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -319,6 +331,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  
 </body>
 </html>
