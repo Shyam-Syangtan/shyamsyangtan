@@ -127,6 +127,22 @@ const sb = supabase.createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqZnBxcXVvbnRqcmppd25mdWt1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0NDkwNjgsImV4cCI6MjA2NTAyNTA2OH0.ek6Q4K_89KgKSwRz0G0F10O6OzFDfbciovYVjoOIrgQ'
 );
 
+// Handle OAuth hash from Supabase redirect
+sb.auth.getSession().then(({ data: { session }, error }) => {
+  if (session) {
+    console.log("User logged in via OAuth:", session.user);
+    localStorage.setItem("isLoggedIn", "true");
+
+    // ✅ Optional: Redirect to main page
+    if (window.location.pathname === "/login.html") {
+      window.location.href = "/findteacher.html";
+    }
+
+    // ✅ Clean up the long URL
+    window.history.replaceState(null, null, window.location.pathname);
+  }
+});
+
 async function checkSession() {
   const { data: { session } } = await sb.auth.getSession();
   const loginBtn = document.getElementById("login-btn");
