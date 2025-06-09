@@ -152,4 +152,66 @@ document.getElementById("logout-btn")?.addEventListener("click", async () => {
   window.location.href = "login.html";
 });
 
+document.addEventListener('DOMContentLoaded', async () => {
+  const loginBtn = document.getElementById('login-btn');
+  const userInitialContainer = document.getElementById('user-initial-container');
+  const userInitial = document.getElementById('user-initial');
+  const userDropdown = document.getElementById('user-dropdown');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  // Initialize Supabase client
+  const supabase = createClient('https://jjfpqquontjrjiwnfuku.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpqZnBxcXVvbnRqcmppd25mdWt1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0NDkwNjgsImV4cCI6MjA2NTAyNTA2OH0.ek6Q4K_89KgKSwRz0G0F10O6OzFDfbciovYVjoOIrgQ');
+
+  try {
+    // Check user session
+    const { data: { session }, error } = await supabase.auth.getSession();
+
+    if (error) {
+      console.error('Error fetching session:', error.message);
+      return;
+    }
+
+    if (session && session.user) {
+      // User is logged in
+      const email = session.user.email;
+      const initial = email.charAt(0).toUpperCase();
+
+      loginBtn.classList.add('hidden');
+      userInitialContainer.classList.remove('hidden');
+      userInitial.textContent = initial;
+
+      console.log('User logged in:', email);
+    } else {
+      // No user logged in
+      loginBtn.classList.remove('hidden');
+      userInitialContainer.classList.add('hidden');
+
+      console.log('No user logged in.');
+    }
+
+    // Logout functionality
+    logoutBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      const { error } = await supabase.auth.signOut();
+
+      if (error) {
+        console.error('Error during logout:', error.message);
+      } else {
+        console.log('User logged out successfully.');
+        loginBtn.classList.remove('hidden');
+        userInitialContainer.classList.add('hidden');
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Toggle dropdown visibility
+    userInitialContainer.addEventListener('click', () => {
+      userDropdown.classList.toggle('hidden');
+    });
+  } catch (err) {
+    console.error('Unexpected error:', err);
+  }
+});
+
 checkSession();
