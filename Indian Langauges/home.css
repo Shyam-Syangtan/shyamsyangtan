@@ -1,0 +1,55 @@
+/* Home page specific styles */
+.home-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 2rem;
+  padding: 1.5rem;
+}
+.home-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.home-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.profile-summary h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+.view-details {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #0073e6;
+  text-decoration: none;
+}
+.upgrade-card h3,
+.ai-tools h3,
+.my-teachers h3,
+.recommendations h3 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+.teacher-item,
+.link-item {
+  margin-bottom: 0.5rem;
+}
+.view-all,
+.view-more {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #0073e6;
+  text-decoration: none;
+}
+.search-teachers .nav-search {
+  width: 100%;
+  padding: 0.5rem;
+}
