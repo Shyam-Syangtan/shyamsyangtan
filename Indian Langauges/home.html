@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="home.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="home.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png" alt="Logo" class="logo" /></a>
+      <a href="home.html" class="nav-link active">Home</a>
+      <a class="nav-link">Learn</a>
+      <a href="index.html" class="nav-link">Find a teacher</a>
+      <a class="nav-link">Group Class</a>
+      <a class="nav-link">Community</a>
+      <a class="nav-link">More</a>
+    </div>
+    <div class="navbar-right">
+      <input type="text" placeholder="Search..." class="nav-search" />
+      <div class="nav-avatar"></div>
+    </div>
+  </nav>
+
+  <div class="home-container" style="display: grid; grid-template-columns: 3fr 1fr; gap: 2rem; padding: 1.5rem;">
+
+    <!-- Main Dashboard (Left) -->
+    <div class="home-main" style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <!-- Profile summary -->
+      <div class="profile-summary card">
+        <h2>Shyam Syangtan</h2>
+        <div>ID: 9627036</div>
+        <div>🔥 Week streak: <strong>3</strong></div>
+        <div>Total hours spent: <strong>113.5</strong> (+0.5)</div>
+        <div>My knowledge: <em>–</em></div>
+        <p>This week: You’ve surpassed <strong>64%</strong> of similar learners!</p>
+        <a href="#" class="view-details">View details &rarr;</a>
+      </div>
+
+      <!-- Action for today -->
+      <div class="upgrade-card card">
+        <h3>Action for today</h3>
+        <p>Upgrade to Plus to use the full range of features</p>
+        <button class="book-btn">Upgrade</button>
+        <span class="badge">Plus+</span>
+      </div>
+
+      <!-- AI learning tools promo -->
+      <div class="ai-tools card">
+        <h3>Become fluent faster with AI learning tools</h3>
+        <ul>
+          <li>Lesson Summaries</li>
+          <li>Progress</li>
+          <li>Homework</li>
+          <li>Practice</li>
+        </ul>
+        <button class="book-btn">Upgrade</button>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="quick-links card">
+        <div class="link-item">
+          <h4>italki Balance</h4>
+          <p>$0.00 USD</p>
+        </div>
+        <div class="link-item">
+          <h4>Refer a Friend</h4>
+          <p>Bring friends along and earn rewards!</p>
+        </div>
+        <div class="link-item">
+          <h4>Language Test</h4>
+          <p>Test your language level</p>
+        </div>
+        <div class="link-item">
+          <h4>Download the italki App</h4>
+          <p>Learn languages, anytime, anywhere.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Recommendations (Right) -->
+    <aside class="home-aside" style="display: flex; flex-direction: column; gap: 1.5rem;">
+      <!-- My Teachers -->
+      <div class="my-teachers card">
+        <h3>My teachers</h3>
+        <div class="teacher-item">
+          <span>Salm</span> — USD 12.00 / Hour
+        </div>
+        <div class="teacher-item">
+          <span>刘婷婷</span> — USD 12.00 / Hour
+        </div>
+        <a href="#" class="view-all">View all &rarr;</a>
+      </div>
+
+      <!-- Recommended for you -->
+      <div class="recommendations card">
+        <h3>Thai Teachers for You</h3>
+        <p>We recommend teachers based on your learning preferences.</p>
+        <div class="tutor-card">
+          <div class="video-thumb"><iframe src="https://www.youtube.com/embed/bElFGv0Ku40?si=xF7zOm5D_qJ2Oaqb" allowfullscreen></iframe></div>
+          <div class="tutor-info">
+            <span class="tutor-name">Kru Jeerawan</span>
+            <div class="tutor-meta">
+              ⭐ 5.0 · 776 Lessons · USD 12.00 / Hour
+            </div>
+            <button class="book-btn">Book lesson</button>
+          </div>
+        </div>
+        <!-- more tutor-card items... -->
+        <button class="view-more">Show more</button>
+      </div>
+
+      <!-- Search for teachers -->
+      <div class="search-teachers card">
+        <input type="text" placeholder="Search for teachers" class="nav-search" />
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
