@@ -1,71 +1,481 @@
-/* Profile Page Styles */
+/* Enhanced profile styles based on reference design */
+
+:root {
+  --primary-color: #ff4f4f;
+  --secondary-color: #f8f9fa;
+  --text-primary: #333333;
+  --text-secondary: #6c757d;
+  --border-color: #e9ecef;
+  --green-badge: #42b883;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --border-radius: 12px;
+}
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f4f6f9;
-  color: #2e2e2e;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+  background-color: #f5f7fa;
+  color: var(--text-primary);
+  line-height: 1.6;
   margin: 0;
   padding: 0;
 }
 
+/* Main profile container */
 .profile-container {
   max-width: 1200px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  padding: 2rem;
 }
 
+/* Profile card layout */
+.profile-card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Add hover effects to show it's clickable */
+.profile-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Approach 1: Using a pseudo-element overlay for the clickable area */
+.profile-card.clickable {
+  position: relative;
+}
+
+.profile-card.clickable::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+/* Make sure interactive elements inside still work by placing them above the overlay */
+.profile-card .btn,
+.profile-card a,
+.profile-card button,
+.profile-card .profile-tab,
+.profile-card .language-tab,
+.profile-card input,
+.profile-card select,
+.profile-card textarea {
+  position: relative;
+  z-index: 2;
+}
+
+/* Approach 2: JavaScript-friendly class that handles click event */
+.profile-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Visual indicator for clickable cards */
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff4f4f' width='24px' height='24px'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.profile-card:hover::before {
+  opacity: 0.7;
+}
+
+/* Make stats section stand out on hover */
+.profile-card:hover .stats-section {
+  background-color: rgba(255, 79, 79, 0.05);
+  border-color: var(--primary-color);
+  transition: all 0.2s ease;
+}
+
+/* Optional: Add a subtle border indicator on hover */
+.profile-card:hover {
+  border-left: 3px solid var(--primary-color);
+  padding-left: calc(2rem - 3px);
+}
+
+/* Profile header with avatar and basic info */
 .profile-header {
   display: flex;
-  align-items: center;
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  align-items: flex-start;
+  position: relative;
 }
 
 .profile-avatar {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 3px solid white;
+  box-shadow: var(--card-shadow);
 }
 
 .profile-info {
   flex: 1;
 }
 
-.profile-info h1 {
+.profile-name {
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  color: var(--text-primary);
+}
+
+.profile-role {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.verification-badge {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: var(--green-badge);
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  margin-left: 0.5rem;
+  font-size: 12px;
+}
+
+.online-indicator {
+  display: inline-flex;
+  align-items: center;
+  color: var(--green-badge);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.online-indicator::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--green-badge);
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+/* Language sections */
+.language-section {
+  margin-top: 1.5rem;
+}
+
+.section-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
 }
 
-.profile-info p {
-  font-size: 1rem;
-  color: #666;
-}
-
-.profile-content {
+.language-list {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.profile-section {
-  background: #f9fafb;
+.language-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 30px;
+  background-color: var(--secondary-color);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.native-tag {
+  background-color: #e8f4f8;
+  color: #0079b8;
+}
+
+.proficiency-indicator {
+  display: inline-block;
+  color: #adb5bd;
+  font-size: 0.8rem;
+  margin-left: 0.25rem;
+}
+
+/* Teacher quote */
+.teacher-quote {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text-primary);
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--primary-color);
+}
+
+/* Tab navigation */
+.profile-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+.profile-tab {
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.profile-tab.active {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.profile-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+/* About section */
+.about-section {
+  line-height: 1.8;
+}
+
+.teacher-metadata {
+  margin-top: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.metadata-item {
+  margin-bottom: 0.5rem;
+}
+
+/* Video section */
+.video-container {
+  background-color: #f8f9fa;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.video-player {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+}
+
+.video-caption {
   padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  background-color: rgba(0,0,0,0.05);
 }
 
-.profile-section h2 {
+.video-timestamp {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Lessons section */
+.lessons-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.lessons-info {
+  flex: 1;
+}
+
+.lessons-title {
   font-size: 1.5rem;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
-.profile-section p {
-  font-size: 1rem;
-  color: #444;
+.hourly-rate {
+  text-align: right;
+}
+
+.rate-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Call to action buttons */
+.cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #e64444;
+}
+
+.btn-outline {
+  background-color: white;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Stats section */
+.stats-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.stat-item {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Lesson offerings */
+.lessons-offerings {
+  margin-top: 2rem;
+}
+
+.lesson-type {
+  padding: 1.5rem;
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lesson-type-info h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.lesson-type-info p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.lesson-price {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* Language filter tabs */
+.language-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.language-tab {
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  background-color: #e9ecef;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.language-tab.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .stats-section {
+    flex-wrap: wrap;
+  }
+  
+  .stat-item {
+    flex-basis: 50%;
+    margin-bottom: 1rem;
+  }
+  
+  .lessons-section {
+    flex-direction: column;
+  }
+  
+  .hourly-rate {
+    text-align: left;
+    margin-top: 1rem;
+  }
 }
