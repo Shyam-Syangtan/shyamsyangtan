@@ -3,104 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Shyam Syangtan — Profile</title>
+  <title>Student Profile - Indian Language Tutors</title>
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="stylesheet" href="profile.css"/>
+  
+  <!-- IMPORTANT: Load Supabase JS from CDN FIRST (without type="module") -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Then load your client initialization -->
+  <script src="supabaseClient.js"></script>
+  
+  <!-- Then load auth.js -->
+  <script src="auth.js"></script>
+  
+  <!-- Finally load profile.js -->
+  <script src="profile.js"></script>
 </head>
 <body>
-
-  <!-- Sticky Navbar (same as index.html) -->
+  <!-- Navbar section -->
   <nav class="navbar">
     <div class="navbar-left">
-      <a href="home.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png"
-           alt="Logo" class="logo" /></a>
+      <a href="home.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png" alt="Logo" class="logo" /></a>
       <a href="home.html" class="nav-link">Home</a>
       <a href="#" class="nav-link">Learn</a>
-      <a href="index.html" class="nav-link active">Find a teacher</a>
+      <a href="index.html" class="nav-link">Find a teacher</a>
       <a href="#" class="nav-link">Group Class</a>
       <a href="#" class="nav-link">Community</a>
       <a href="#" class="nav-link">More</a>
     </div>
     <div class="navbar-right">
       <input type="text" placeholder="Search..." class="nav-search"/>
-      <div class="nav-avatar"></div>
+      <!-- Auth UI elements -->
+      <div id="nav-auth">
+        <a href="#" class="nav-link" id="login-btn">Log in</a>
+        <div class="user-initial-container hidden" id="user-initial-container">
+          <div class="user-initial" id="user-initial">U</div>
+          <div class="dropdown hidden" id="user-dropdown">
+            <a href="#" id="my-profile-link">My Profile</a>
+            <a href="#" id="logout-btn">Log out</a>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
+  <!-- Profile Container -->
   <div class="profile-container">
-    <!-- Header -->
-    <section class="profile-header">
-      <img id="profile-avatar" class="avatar-large" src="profile.jpg" alt="Shyam Syangtan"/>
-      <div class="profile-info">
-        <h1 id="profile-name"></h1>
-        <p id="profile-role" class="subtle"></p>
-        <p id="profile-status" class="status"></p>
-        <div id="profile-langs" class="tutor-langs"></div>
-        <blockquote id="profile-tagline"></blockquote>
-      </div>
-    </section>
-
-    <!-- Tabs -->
-    <ul class="profile-tabs">
-      <li class="active">About Me</li>
-      <li>Lessons</li>
-      <li>Availability</li>
-      <li>Reviews</li>
-    </ul>
-
-    <!-- Body: main + aside -->
-    <div class="profile-body">
-      <main class="profile-main">
-        <section id="aboutMe" class="about-me">
-          <h2>About Me</h2>
-          <p id="profile-description"></p>
-        </section>
-
-        <section id="lessons" class="lessons-list">
-          <h2>English Lessons</h2>
-          <div class="lesson-item">
-            <div class="lesson-info">
-              <strong>Conversation Practice</strong>
-              <span>A1–C2 · 1,116 lessons completed</span>
-            </div>
-            <div class="lesson-rate">
-              <span class="big-price">USD 7.00+</span>
-              <small>15% off package</small>
-            </div>
-          </div>
-          <div class="lesson-item">
-            <div class="lesson-info">
-              <strong>Custom request</strong>
-              <span>A1–C2 · 47 lessons completed</span>
-            </div>
-            <div class="lesson-rate">
-              <span class="big-price">USD 5.00</span>
-            </div>
-          </div>
-        </section>
-
-        <section id="availability" class="availability-grid">
-          <h2>Availability</h2>
-          <!-- generate rows/cols as needed -->
-        </section>
-
-        <section id="reviews" class="reviews-list">
-          <h2>556 Reviews</h2>
-          <!-- individual .review-card blocks -->
-        </section>
-      </main>
-
-      <aside class="profile-aside">
-        <div class="video-card"><iframe id="intro-video" src="" allowfullscreen></iframe></div>
-        <div class="sidebar-lessons">
-          <h3>Lessons</h3>
-          <p><strong>Rate:</strong> <span id="profile-price"></span></p>
-          <p><strong>Taught:</strong> <span id="profile-lessons"></span></p>
+    <!-- Loading indicator -->
+    <div id="loading-indicator">
+      <div class="spinner"></div>
+      <p>Loading profile...</p>
+    </div>
+    
+    <!-- Error message (hidden by default) -->
+    <div id="error-message" class="error-message hidden">Unable to load profile.</div>
+    
+    <!-- Profile content (hidden by default) -->
+    <div id="profile-content" class="hidden">
+      <div class="profile-header">
+        <div class="profile-avatar-container">
+          <img id="profile-avatar" src="https://via.placeholder.com/120" alt="Profile Picture">
         </div>
-      </aside>
+        <div class="profile-info">
+          <h1 id="profile-name">Student Name</h1>
+          <p id="profile-email">student@example.com</p>
+        </div>
+      </div>
+      
+      <div class="profile-details">
+        <h2>Student Profile</h2>
+        <div class="profile-section">
+          <p>Member since: <span id="profile-created"></span></p>
+        </div>
+      </div>
     </div>
   </div>
-
-  <script src="profile.js"></script>
+  
+  <!-- Add debugging tool to verify Supabase connection -->
+  <script>
+    // After a short delay, check and report on Supabase client status
+    setTimeout(function() {
+      console.log('🧪 Supabase client availability check:', !!window.supabaseClient);
+      
+      if (window.supabaseClient) {
+        // Test the connection with a ping
+        window.supabaseClient
+          .from('profiles')
+          .select('count(*)', { count: 'exact', head: true })
+          .then(function(response) {
+            console.log('🧪 Supabase connection test result:', response);
+          })
+          .catch(function(error) {
+            console.error('🧪 Supabase connection test error:', error);
+          });
+      }
+    }, 1000);
+  </script>
 </body>
 </html>

@@ -103,8 +103,32 @@ function updateUIWithUserSession(session) {
   
   console.log('🎨 Updated UI for logged-in user:', initial);
   
+  // FIXED: Correctly set "My Profile" link with id parameter (not user_id)
+  const myProfileLink = document.querySelector('#user-dropdown a[id="my-profile-link"]');
+  if (myProfileLink && user.id) {
+    myProfileLink.href = `profile.html?id=${user.id}`;
+    console.log('🔗 Set profile link to:', myProfileLink.href);
+  }
+  
   // Set up dropdown toggle functionality
   setupDropdownBehavior();
+}
+
+/**
+ * Update UI for logged in users
+ * @param {Object} user - The current user object
+ */
+function updateUIForLoggedInUser(user) {
+  if (!user || !user.id) {
+    console.error('❌ Invalid user object');
+    return;
+  }
+  
+  // Update the "My Profile" link to point to the current user's profile
+  const myProfileLink = document.getElementById('my-profile-link');
+  if (myProfileLink) {
+    myProfileLink.href = `profile.html?id=${user.id}`;
+  }
 }
 
 /**
@@ -285,3 +309,87 @@ export {
   signInWithGoogle,
   signOut
 };
+
+// Fix for "My Profile" link - runs when auth.js loads
+(function() {
+  // Wait for DOM to be loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if we have a Supabase client and look for an existing session
+    if (window.supabaseClient) {
+      window.supabaseClient.auth.getSession().then(function(response) {
+        const { data } = response;
+        if (data && data.session && data.session.user) {
+          // Fix the "My Profile" link to use 'id' param instead of 'user_id'
+          const myProfileLink = document.getElementById('my-profile-link');
+          if (myProfileLink) {
+            myProfileLink.href = `profile.html?id=${data.session.user.id}`;
+            console.log('Fixed profile link to use correct "id" parameter:', myProfileLink.href);
+          }
+        }
+      }).catch(function(err) {
+        console.error('Error checking session for profile link fix:', err);
+      });
+    }
+  });
+})();
+
+/**
+ * Debug script to check URL parameters
+ */
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const profileId = urlParams.get('id');
+  console.log('Current URL parameters:', {
+    'id parameter': profileId,
+    'full URL': window.location.href,
+    'has id parameter': urlParams.has('id')
+  });
+  
+  // Log the current "My Profile" link if it exists
+  const myProfileLink = document.getElementById('my-profile-link');
+  if (myProfileLink) {
+    console.log('Current "My Profile" link href:', myProfileLink.href);
+  }
+});
+
+/**
+ * Update UI elements to show logged-in state
+ * @param {Object} session - The user session object
+ */
+function updateUIWithUserSession(session) {
+  if (!session || !session.user) {
+    console.error('❌ Invalid session object');
+    return;
+  }
+  
+  const loginBtn = document.getElementById('login-btn');
+  const userInitialContainer = document.getElementById('user-initial-container');
+  const userInitial = document.getElementById('user-initial');
+  
+  if (!loginBtn || !userInitialContainer || !userInitial) {
+    console.warn('⚠️ UI elements not found for auth update');
+    return;
+  }
+  
+  const user = session.user;
+  const email = user.email || '';
+  const name = user.user_metadata?.full_name || email.split('@')[0];
+  const initial = name.charAt(0).toUpperCase();
+  
+  // Hide login button, show user initial
+  loginBtn.classList.add('hidden');
+  userInitialContainer.classList.remove('hidden');
+  userInitial.textContent = initial;
+  
+  console.log('🎨 Updated UI for logged-in user:', initial);
+  
+  // FIXED: Correctly set "My Profile" link with id parameter (not user_id)
+  const myProfileLink = document.querySelector('#user-dropdown a[id="my-profile-link"]');
+  if (myProfileLink && user.id) {
+    myProfileLink.href = `profile.html?id=${user.id}`;
+    console.log('🔗 Set profile link to:', myProfileLink.href);
+  }
+  
+  // Set up dropdown toggle functionality
+  setupDropdownBehavior();
+}
