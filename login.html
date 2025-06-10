@@ -1,46 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - Indian Language Tutors</title>
-  <link rel="stylesheet" href="styles.css"/>
-  
-  <!-- No scripts in head section -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - TutorConnect</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .login-container {
+      max-width: 450px;
+      margin: 8rem auto 2rem;
+      padding: 3rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .login-container h2 {
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    .login-container p {
+      margin-bottom: 2.5rem;
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      width: 100%;
+      padding: 15px 24px;
+      background: #4285f4;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+
+    .google-btn:hover {
+      background: #3367d6;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    }
+
+    .google-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .google-btn img {
+      width: 22px;
+      height: 22px;
+    }
+
+    .login-footer {
+      margin-top: 2.5rem;
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .login-footer a {
+      color: #4285f4;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+
+    .status {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+      font-weight: 500;
+    }
+
+    .status.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .status.error {
+      background: #fee;
+      color: #c53030;
+      border: 1px solid #feb2b2;
+    }
+
+    .status.success {
+      background: #f0fff4;
+      color: #38a169;
+      border: 1px solid #9ae6b4;
+    }
+
+    .status.info {
+      background: #ebf8ff;
+      color: #3182ce;
+      border: 1px solid #90cdf4;
+    }
+
+    /* Logo styling for login page */
+    .navbar .logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .navbar {
+      background: transparent;
+      box-shadow: none;
+    }
+  </style>
 </head>
 <body>
-  <!-- Login form with Google Auth button -->
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png" alt="Logo" class="logo" /></a>
+    </div>
+  </nav>
+
+  <!-- Login form -->
   <div class="login-container">
-    <h2>Log in to continue</h2>
+    <h2>Welcome to TutorConnect</h2>
+    <p>Sign in to start learning with expert tutors</p>
+
+    <div id="status" class="status"></div>
+
     <button id="google-login-btn" class="google-btn">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google"> 
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google">
       Continue with Google
     </button>
+
+    <p class="login-footer">
+      New to TutorConnect? Signing in will create your account automatically.
+    </p>
   </div>
   
-  <!-- Scripts at the bottom of body -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabaseClient.js"></script>
-  <script src="auth.js"></script>
   <script>
-    // Login page specific script
-    document.addEventListener('DOMContentLoaded', async () => {
-      // Check for existing session first
-      const session = await window.checkAndUpdateSession();
-      if (session) {
-        // Already logged in, redirect to home
-        window.location.href = "index.html";
-        return;
+    function showStatus(message, type = 'info') {
+      const status = document.getElementById('status');
+      status.textContent = message;
+      status.className = `status show ${type}`;
+    }
+
+    function hideStatus() {
+      const status = document.getElementById('status');
+      status.className = 'status';
+    }
+
+    async function waitForSupabase() {
+      let attempts = 0;
+      while (!window.supabaseClient && attempts < 20) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        attempts++;
       }
-      
-      // Set up login buttons
-      const googleLoginBtn = document.getElementById('google-login-btn');
-      if (googleLoginBtn) {
-        googleLoginBtn.addEventListener('click', async (e) => {
-          e.preventDefault();
-          await window.signInWithGoogle();
+      if (!window.supabaseClient) {
+        throw new Error('Supabase not available');
+      }
+    }
+
+    async function handleGoogleLogin() {
+      const btn = document.getElementById('google-login-btn');
+
+      try {
+        // Update button
+        btn.textContent = 'Signing in...';
+        btn.disabled = true;
+        showStatus('Starting Google authentication...', 'info');
+
+        // Wait for Supabase
+        await waitForSupabase();
+
+        // OAuth always redirects to index.html, but we'll handle the redirect in auth.js
+        const { data, error } = await window.supabaseClient.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: `${window.location.origin}/index.html`
+          }
         });
+
+        if (error) {
+          throw error;
+        }
+
+        showStatus('Redirecting to Google...', 'success');
+
+      } catch (error) {
+        console.error('Login error:', error);
+
+        // Reset button
+        btn.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google" style="width:20px;height:20px;"> Continue with Google';
+        btn.disabled = false;
+
+        // Show error
+        showStatus(`Login failed: ${error.message}`, 'error');
+
+        // Specific error handling
+        if (error.message.includes('Invalid login credentials')) {
+          showStatus('Google OAuth not configured. Please check Supabase settings.', 'error');
+        }
       }
+    }
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('Login page loaded');
+
+      // Check if already logged in
+      try {
+        await waitForSupabase();
+        const { data: { session } } = await window.supabaseClient.auth.getSession();
+        if (session) {
+          showStatus('Already logged in, redirecting...', 'success');
+
+          // Check if there's a redirect URL stored
+          const redirectUrl = localStorage.getItem('redirect_after_login');
+          if (redirectUrl) {
+            localStorage.removeItem('redirect_after_login');
+            window.location.href = redirectUrl;
+          } else {
+            window.location.href = 'find-tutors.html';
+          }
+          return;
+        }
+      } catch (error) {
+        console.log('Session check failed:', error);
+      }
+
+      // Set up login button
+      const btn = document.getElementById('google-login-btn');
+      btn.addEventListener('click', handleGoogleLogin);
+
+      showStatus('Ready to sign in', 'info');
+      setTimeout(hideStatus, 2000);
     });
   </script>
 </body>

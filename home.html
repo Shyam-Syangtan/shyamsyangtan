@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard — Home</title>
+  <title>Dashboard - TutorConnect</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -14,24 +14,18 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div class="navbar-left">
-      <a href="home.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png" alt="Logo" class="logo" /></a>
-      <a href="home.html" class="nav-link active">Home</a>
-      <a href="#" class="nav-link">Learn</a>
-      <a href="index.html" class="nav-link">Find a teacher</a>
-      <a href="#" class="nav-link">Group Class</a>
-      <a href="#" class="nav-link">Community</a>
-      <a href="#" class="nav-link">More</a>
+      <a href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png" alt="Logo" class="logo" /></a>
+      <a href="find-tutors.html" class="nav-link">Find a Tutor</a>
     </div>
     <div class="navbar-right">
-      <input type="text" placeholder="Search..." class="nav-search" />
       <!-- Auth UI elements -->
       <div id="nav-auth">
         <a href="login.html" class="nav-link" id="login-btn">Log in</a>
         <div class="user-initial-container hidden" id="user-initial-container">
           <div class="user-initial" id="user-initial">U</div>
           <div class="dropdown hidden" id="user-dropdown">
-            <a href="#" id="my-profile-link">My Profile</a>
-            <a href="#" id="logout-btn">Log out</a>
+            <a href="profile.html" id="my-profile-link">My Profile</a>
+            <a href="#" id="logout-btn">Sign Out</a>
           </div>
         </div>
       </div>
@@ -39,27 +33,79 @@
   </nav>
 
   <div class="home-container" style="max-width: 1200px; margin: 2rem auto; padding: 0 2rem;">
-    <div class="hero-section" style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; align-items: center;">
+    <!-- Main Hero Section -->
+    <div class="hero-section" style="display: flex; flex-wrap: wrap; gap: 2rem; margin-bottom: 3rem; align-items: center;">
       <div style="flex: 1; min-width: 300px;">
         <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Become fluent in any language</h1>
         <ul style="list-style: none; padding-left: 0; margin-bottom: 1.5rem;">
           <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-            <span style="color: white; background-color: #ff4f4f; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px;">✓</span> 
+            <span style="color: white; background-color: #ff4f4f; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px;">✓</span>
             Take customizable 1-on-1 lessons
           </li>
           <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-            <span style="color: white; background-color: #ff4f4f; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px;">✓</span> 
+            <span style="color: white; background-color: #ff4f4f; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px;">✓</span>
             Learn from certified teachers
           </li>
           <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-            <span style="color: white; background-color: #ff4f4f; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px;">✓</span> 
+            <span style="color: white; background-color: #ff4f4f; border-radius: 50%; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px;">✓</span>
             Connect with a global community
           </li>
         </ul>
-        <a href="index.html" style="display: inline-block; padding: 0.8rem 2rem; background-color: #ff4f4f; color: white; font-weight: bold; text-decoration: none; border-radius: 5px;">Start Now</a>
+        <a href="find-tutors.html" style="display: inline-block; padding: 0.8rem 2rem; background-color: #ff4f4f; color: white; font-weight: bold; text-decoration: none; border-radius: 5px;">Start Now</a>
       </div>
       <div style="flex: 1; min-width: 300px;">
         <img src="https://placehold.co/600x400/ff4f4f/ffffff?text=Language+Learning" alt="Language Learning" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);" />
+      </div>
+    </div>
+
+    <!-- Become a Tutor Section (Only shown to learners) -->
+    <div id="become-tutor-section" class="become-tutor-cta" style="display: none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem 2rem; border-radius: 15px; text-align: center; margin-bottom: 3rem; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+      <div style="max-width: 800px; margin: 0 auto;">
+        <h2 style="font-size: 2.2rem; margin-bottom: 1rem; font-weight: 600;">Ready to Share Your Language Skills?</h2>
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9; line-height: 1.6;">Join thousands of tutors earning money by teaching Indian languages to students worldwide. Set your own schedule, rates, and make a meaningful impact.</p>
+
+        <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;">
+          <div style="text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💰</div>
+            <div style="font-weight: 600;">Earn $10-50/hour</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">⏰</div>
+            <div style="font-weight: 600;">Flexible Schedule</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🌍</div>
+            <div style="font-weight: 600;">Global Students</div>
+          </div>
+          <div style="text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📚</div>
+            <div style="font-weight: 600;">Make Impact</div>
+          </div>
+        </div>
+
+        <a href="become-tutor.html" style="display: inline-block; padding: 1rem 2.5rem; background-color: white; color: #667eea; font-weight: bold; text-decoration: none; border-radius: 8px; font-size: 1.1rem; transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          Become a Tutor Today
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Stats Section -->
+    <div class="stats-section" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+      <div style="text-align: center; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #ff4f4f; margin-bottom: 0.5rem;">500+</div>
+        <div style="color: #666; font-weight: 500;">Expert Tutors</div>
+      </div>
+      <div style="text-align: center; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #ff4f4f; margin-bottom: 0.5rem;">10+</div>
+        <div style="color: #666; font-weight: 500;">Indian Languages</div>
+      </div>
+      <div style="text-align: center; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #ff4f4f; margin-bottom: 0.5rem;">50K+</div>
+        <div style="color: #666; font-weight: 500;">Lessons Completed</div>
+      </div>
+      <div style="text-align: center; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div style="font-size: 2.5rem; font-weight: bold; color: #ff4f4f; margin-bottom: 0.5rem;">4.9★</div>
+        <div style="color: #666; font-weight: 500;">Average Rating</div>
       </div>
     </div>
   </div>
@@ -82,5 +128,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabaseClient.js"></script>
   <script src="auth.js"></script>
+  
+
 </body>
 </html>
