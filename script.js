@@ -1,33 +1,21 @@
 console.log("🚀 Main script loading...");
 
 import { checkAndUpdateSession, signInWithGoogle } from './auth.js';
+import { supabaseClient } from './supabaseClient.js';
 
-const tutors = [
-  {
-    name: "Shyam Syangtan",
-    language: "Hindi",
-    price: "$15/hr",
-    rating: 5.0,
-    lessons: 500,
-    speaks: ["Hindi", "Nepali", "English"],
-    image: "https://placehold.co/120x120",
-    video: "https://www.youtube.com/embed/bElFGv0Ku40",
-    description: "Certified Hindi tutor with 5 years of experience."
-  },
-  {
-    name: "Sam",
-    language: "Tamil",
-    price: "$12/hr",
-    rating: 4.8,
-    lessons: 300,
-    speaks: ["Tamil", "English"],
-    image: "https://placehold.co/120x120",
-    video: "https://www.youtube.com/embed/QiDij7qCCaY?si=GCwYrV713_5oWeD3",
-    description: "Native Tamil tutor passionate about language and culture."
+// Fetch tutors from Supabase instead of using a hardcoded array
+async function fetchTutors() {
+  const { data, error } = await supabaseClient
+    .from('tutors')
+    .select('*')
+    .order('created_at', { ascending: false });
+      console.log("Fetched tutors:", data, "Error:", error);
+    if (error) {
+    console.error('❌ Error fetching tutors:', error);
+    return [];
   }
-];
-
-window.tutors = tutors;
+  return data;
+}
 
 const tutorList = document.getElementById("tutor-list");
 const iframe = document.getElementById("intro-video");
@@ -42,40 +30,43 @@ function openProfile(tutor) {
   window.open("profile.html", "_blank");
 }
 
-function renderTutors(filteredTutors = tutors) {
+function renderTutors(tutors = []) {
+  const tutorList = document.getElementById("tutor-list");
   if (!tutorList) return;
   tutorList.innerHTML = "";
 
-  filteredTutors.forEach(tutor => {
-    const tutorDiv = document.createElement("div");
-    tutorDiv.className = "tutor-card";
-    tutorDiv.onclick = () => openProfile(tutor);
+  tutors.forEach(tutor => {
+    const displayName = tutor.name || "Unnamed";
+    const languages = tutor.languages || "";
+    const description = tutor.bio || "";
+    const price = tutor.price_per_hour ? `USD ${tutor.price_per_hour} / Hour` : "";
+    const rating = tutor.rating || "";
+    const lessons = tutor.lessons || "";
+    const profileImg = tutor.profile_img || "profile.jpg";
 
-    tutorDiv.innerHTML = `
-      <img src="${tutor.image}" alt="${tutor.name}" class="card-img"/>
-      <div class="card-content">
-        <h3>${tutor.name}</h3>
-        <p><strong>Language:</strong> ${tutor.language}</p>
-        <p><strong>Speaks:</strong> ${tutor.speaks.join(", ")}</p>
-        <p><strong>Rating:</strong> ${tutor.rating} ⭐</p>
-        <p><strong>Lessons:</strong> ${tutor.lessons}</p>
-        <p><strong>Rate:</strong> ${tutor.price}</p>
-        <div class="card-buttons">
-          <button class="btn" onclick="event.stopPropagation(); playVideo('${tutor.video}')">🎥 Watch Intro</button>
-          <button class="btn" onclick="event.stopPropagation(); openInNewTab('${tutor.name}')">Profile Details</button>
-          <button class="btn">Book lesson</button>
+    const card = document.createElement("div");
+    card.className = "tutor-card";
+    card.innerHTML = `
+      <div class="tutor-avatar">
+        <img src="${profileImg}" alt="${displayName}" />
+      </div>
+      <div class="tutor-info">
+        <span class="tutor-name">${displayName}</span>
+        <span class="tutor-role">Community Tutor</span>
+        <div class="tutor-langs"><span>Speaks:</span> ${languages}</div>
+        <div class="tutor-desc">${description}</div>
+        <div class="tutor-meta">
+          <span class="rating">⭐ ${rating}</span>
+          <span>${lessons} Lessons</span>
+          <span class="price">${price}</span>
         </div>
       </div>
     `;
-    tutorList.appendChild(tutorDiv);
+    tutorList.appendChild(card);
   });
 }
 
-function filterTutors() {
-  const query = document.getElementById("search-input").value.toLowerCase();
-  const results = tutors.filter(t => t.name.toLowerCase().includes(query) || t.language.toLowerCase().includes(query));
-  renderTutors(results);
-}
+// Add filter/search functionality as needed
 
 function openProfileModal() {
   if (modal) {
@@ -96,76 +87,23 @@ window.onclick = function(event) {
 };
 
 function openInNewTab(tutorName) {
-  const tutor = tutors.find(t => t.name === tutorName);
-  if (!tutor) return;
-  localStorage.setItem("selectedTutor", JSON.stringify(tutor));
-  window.open("profile.html", "_blank");
-}
-
-const tutorCards = document.querySelectorAll('.tutor-card');
-const videoScheduleSection = document.querySelector('.video-schedule-section');
-const introVideo = document.getElementById('intro-video');
-
-// Function to check if the device is mobile
-function isMobileDevice() {
-  return window.innerWidth < 768; // Consider devices with width < 768px as mobile
-}
-
-// Update sidebar function - now with mobile check
-function updateSidebar(card) {
-  // Skip showing video on mobile devices
-  if (isMobileDevice()) {
-    console.log('📱 Mobile device detected, skipping video display');
-    return; // Don't show video/schedule on mobile
+  // We'll fetch from the currently rendered list
+  const tutorCards = document.querySelectorAll('.tutor-card');
+  for (let card of tutorCards) {
+    if (card.querySelector('h3').textContent === tutorName) {
+      // Get the JSON from the onclick handler
+      // In this setup, you should have the full tutor object already
+      // Fallback: just open profile.html
+      window.open("profile.html", "_blank");
+      return;
+    }
   }
-
-  const videoSection = document.querySelector('.video-schedule-section');
-  const videoFrame = document.getElementById('intro-video');
-  const videoMeta = document.querySelector('.video-meta');
-  
-  // Make video section visible if it was hidden
-  videoSection.style.display = 'block';
-  
-  // Get video URL from card's data attribute
-  const videoUrl = card.dataset.video;
-  // Get timestamps if available
-  const timestamps = card.dataset.timestamps || '';
-  
-  // Update video source
-  videoFrame.src = videoUrl;
-  
-  // Update metadata
-  videoMeta.innerHTML = timestamps || `<div>${card.dataset.name}'s intro video</div>`;
-  
-  // Position the video section next to the hovered card
-  const cardRect = card.getBoundingClientRect();
-  const sidebarTop = cardRect.top + window.scrollY;
-  videoSection.style.top = `${sidebarTop}px`;
 }
 
-// Add window resize listener to handle orientation changes
-window.addEventListener('resize', function() {
-  const videoSection = document.querySelector('.video-schedule-section');
-  
-  // On mobile, hide the video section
-  if (isMobileDevice()) {
-    videoSection.style.display = 'none';
-  }
-});
-
-for (const card of tutorCards) {
-  card.addEventListener('mouseenter', () => updateSidebar(card));
-}
-
-// 🔐 Supabase Auth Integration for Navbar with Profile Creation
 document.addEventListener('DOMContentLoaded', async () => {
   console.log("📄 DOM fully loaded");
-  
-  // IMPORTANT: Check for session and update UI immediately
   const session = await checkAndUpdateSession();
   console.log(session ? "🔓 User is logged in as: " + session.user.email : "🔒 No user logged in");
-  
-  // Setup login button click handler
   const loginBtn = document.getElementById('login-btn');
   if (loginBtn) {
     loginBtn.addEventListener('click', async (e) => {
@@ -174,38 +112,49 @@ document.addEventListener('DOMContentLoaded', async () => {
       await signInWithGoogle();
     });
   }
-  
-  // Initialize rest of your application
-  renderTutors();
+  await renderTutors();
   setupVideoCardBehavior();
 });
 
-// Set up video card behavior
 function setupVideoCardBehavior() {
   const tutorCards = document.querySelectorAll('.tutor-card');
   const videoScheduleSection = document.querySelector('.video-schedule-section');
-  
-  if (!tutorCards.length || !videoScheduleSection) {
-    console.log('⚠️ Tutor cards or video section not found');
-    return;
-  }
-  
+  if (!tutorCards.length || !videoScheduleSection) return;
   for (const card of tutorCards) {
     card.addEventListener('mouseenter', () => {
       updateSidebar(card);
     });
   }
-  
-  // Handle window resize event
   window.addEventListener('resize', () => {
     if (isMobileDevice() && videoScheduleSection) {
       videoScheduleSection.style.display = 'none';
     }
   });
-  
   console.log(`✅ Set up hover behavior for ${tutorCards.length} tutor cards`);
 }
 
-renderTutors();
+function isMobileDevice() {
+  return window.innerWidth < 768;
+}
+
+function updateSidebar(card) {
+  if (isMobileDevice()) return;
+  const videoSection = document.querySelector('.video-schedule-section');
+  const videoFrame = document.getElementById('intro-video');
+  const videoMeta = document.querySelector('.video-meta');
+  videoSection.style.display = 'block';
+  const videoUrl = card.dataset.video;
+  const timestamps = card.dataset.timestamps || '';
+  videoFrame.src = videoUrl;
+  videoMeta.innerHTML = timestamps || `<div>${card.dataset.name}'s intro video</div>`;
+  const cardRect = card.getBoundingClientRect();
+  const sidebarTop = cardRect.top + window.scrollY;
+  videoSection.style.top = `${sidebarTop}px`;
+}
 
 console.log("📢 Main script loaded");
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const tutors = await fetchTutors();
+  renderTutors(tutors);
+});
