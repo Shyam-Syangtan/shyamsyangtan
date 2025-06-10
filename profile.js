@@ -3,101 +3,119 @@
  * Loads and displays user profile from the 'profiles' table in Supabase
  */
 
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('Profile page loaded');
-  
-  // DOM elements
-  const loadingIndicator = document.getElementById('loading-indicator');
-  const errorMessage = document.getElementById('error-message');
-  const profileContent = document.getElementById('profile-content');
-  const profileAvatar = document.getElementById('profile-avatar');
-  const profileName = document.getElementById('profile-name');
-  const profileEmail = document.getElementById('profile-email');
-  const profileCreated = document.getElementById('profile-created');
-  
-  /**
-   * Show error message
-   */
-  function showError(message) {
-    loadingIndicator.classList.add('hidden');
-    errorMessage.textContent = message;
-    errorMessage.classList.remove('hidden');
-    profileContent.classList.add('hidden');
-    console.error('Profile error:', message);
-  }
-  
-  /**
-   * Show profile content
-   */
-  function showProfile() {
-    loadingIndicator.classList.add('hidden');
-    errorMessage.classList.add('hidden');
-    profileContent.classList.remove('hidden');
-  }
-  
-  /**
-   * Format date nicely
-   */
-  function formatDate(dateStr) {
-    if (!dateStr) return 'N/A';
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  }
+document.addEventListener('DOMContentLoaded', function () {
+  console.log("Profile page loaded, checking for profile ID");
   
   // Get profile ID from URL
   const urlParams = new URLSearchParams(window.location.search);
   const profileId = urlParams.get('id');
+  console.log("Profile ID from URL:", profileId);
   
+  // DOM elements
+  const profileContainer = document.getElementById('profile-container');
+  const profileName = document.getElementById('profile-name');
+  const profileEmail = document.getElementById('profile-email');
+  const profileBio = document.getElementById('profile-bio');
+  const profileImage = document.getElementById('profile-image');
+  const loadingIndicator = document.getElementById('loading-indicator');
+  const errorElement = document.getElementById('error-message') || document.createElement('div');
+  const contactEmail = document.getElementById('contact-email');
+  const editProfileButton = document.getElementById('edit-profile-button');
+  
+  // Show loading state
+  if (loadingIndicator) loadingIndicator.style.display = 'block';
+  if (profileContainer) profileContainer.style.display = 'none';
+  if (errorElement) errorElement.style.display = 'none';
+  
+  // If no error element exists, add one
+  if (!document.getElementById('error-message')) {
+    errorElement.id = 'error-message';
+    errorElement.style.color = 'red';
+    document.body.insertBefore(errorElement, document.body.firstChild);
+  }
+  
+  // Check if we have a profile ID
   if (!profileId) {
-    showError('Profile ID is missing. Please check the URL.');
+    console.error("No profile ID found in URL");
+    errorElement.textContent = 'No profile ID provided';
+    if (loadingIndicator) loadingIndicator.style.display = 'none';
     return;
   }
   
-  console.log('Fetching profile with ID:', profileId);
-  
-  // Check if Supabase client is available
-  if (!window.supabaseClient) {
-    showError('Database connection not available');
-    return;
-  }
-  
-  // Fetch profile data from Supabase 'profiles' table
+  // Fetch the profile data using window.supabaseClient
+  console.log("Fetching profile data for ID:", profileId);
   window.supabaseClient
     .from('profiles')
     .select('*')
     .eq('id', profileId)
     .single()
-    .then(function(response) {
-      const { data, error } = response;
+    .then(response => {
+      // Hide loading indicator
+      if (loadingIndicator) loadingIndicator.style.display = 'none';
       
-      if (error) {
-        console.error('Supabase error:', error);
-        showError('Unable to load profile.');
+      if (response.error) {
+        // Show error message with more details
+        console.error('Error fetching profile:', response.error);
+        console.log('Full error details:', {
+          code: response.error.code,
+          message: response.error.message,
+          details: response.error.details,
+          hint: response.error.hint
+        });
+        
+        // Handle 406 error more gracefully (likely RLS policy restriction)
+        if (response.error.code === '406') {
+          errorElement.textContent = 'You do not have permission to view this profile.';
+          
+          // Check if the profile ID matches the current user ID
+          window.supabaseClient.auth.getSession().then(({ data }) => {
+            const currentUserId = data?.session?.user?.id;
+            console.log('Current user ID:', currentUserId, 'Requested profile ID:', profileId);
+            
+            if (currentUserId && currentUserId !== profileId) {
+              errorElement.textContent = 'You can only view your own profile.';
+            }
+          });
+        } else {
+          errorElement.textContent = 'Error loading profile: ' + response.error.message;
+        }
         return;
       }
       
-      if (!data) {
-        console.error('No profile found with ID:', profileId);
-        showError('Unable to load profile.');
+      const profile = response.data;
+      if (!profile) {
+        errorElement.textContent = 'Profile not found';
         return;
       }
       
-      console.log('Profile data loaded:', data);
+      // Update the DOM with profile data
+      if (profileContainer) profileContainer.style.display = 'block';
       
-      // Display profile data
-      profileAvatar.src = data.avatar_url || 'https://via.placeholder.com/120';
-      profileName.textContent = data.name || 'Unnamed User';
-      profileEmail.textContent = data.email || '';
-      profileCreated.textContent = formatDate(data.created_at);
+      if (profileName) profileName.textContent = profile.name || 'No name provided';
+      if (profileEmail) profileEmail.textContent = profile.email || 'No email provided';
+      if (profileBio) profileBio.textContent = profile.bio || 'No bio provided';
+      if (contactEmail) contactEmail.textContent = profile.email || 'No email provided';
       
-      showProfile();
+      // Update profile image if available
+      if (profileImage && profile.avatar_url) {
+        profileImage.src = profile.avatar_url;
+        profileImage.alt = profile.name || 'Profile image';
+      } else if (profileImage) {
+        // Set default image
+        profileImage.src = 'assets/default-profile.png';
+        profileImage.alt = 'Default profile image';
+      }
     })
-    .catch(function(err) {
-      console.error('Unexpected error:', err);
-      showError('An unexpected error occurred.');
+    .catch(error => {
+      console.error('Unexpected error:', error);
+      errorElement.textContent = 'An unexpected error occurred';
     });
+    
+  // Edit Profile Button Event
+  if (editProfileButton) {
+    editProfileButton.addEventListener('click', () => {
+      alert('Profile editing functionality coming soon!');
+      // In a real app, this would open a modal or navigate to an edit form
+    });
+  }
 });

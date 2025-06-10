@@ -6,24 +6,27 @@
   <title>Login - Indian Language Tutors</title>
   <link rel="stylesheet" href="styles.css"/>
   
-  <!-- Load Supabase from CDN first -->
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
-    window.createClient = createClient;
-    console.log('📢 Supabase JS library loaded');
-  </script>
+  <!-- No scripts in head section -->
+</head>
+<body>
+  <!-- Login form with Google Auth button -->
+  <div class="login-container">
+    <h2>Log in to continue</h2>
+    <button id="google-login-btn" class="google-btn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google"> 
+      Continue with Google
+    </button>
+  </div>
   
-  <!-- Load modules in correct order -->
-  <script type="module" src="supabaseClient.js"></script>
-  <script type="module" src="auth.js"></script>
-  
-  <!-- Login page specific script -->
-  <script type="module">
-    import { checkAndUpdateSession, signInWithGoogle } from './auth.js';
-    
+  <!-- Scripts at the bottom of body -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    // Login page specific script
     document.addEventListener('DOMContentLoaded', async () => {
       // Check for existing session first
-      const session = await checkAndUpdateSession();
+      const session = await window.checkAndUpdateSession();
       if (session) {
         // Already logged in, redirect to home
         window.location.href = "index.html";
@@ -35,20 +38,10 @@
       if (googleLoginBtn) {
         googleLoginBtn.addEventListener('click', async (e) => {
           e.preventDefault();
-          await signInWithGoogle();
+          await window.signInWithGoogle();
         });
       }
     });
   </script>
-</head>
-<body>
-  <!-- Login form with Google Auth button -->
-  <div class="login-container">
-    <h2>Log in to continue</h2>
-    <button id="google-login-btn" class="google-btn">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google"> 
-      Continue with Google
-    </button>
-  </div>
 </body>
 </html>

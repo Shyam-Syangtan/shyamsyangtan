@@ -1,102 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Profile - Indian Language Tutors</title>
-  <link rel="stylesheet" href="styles.css"/>
-  
-  <!-- IMPORTANT: Load Supabase JS from CDN FIRST (without type="module") -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
-  <!-- Then load your client initialization -->
-  <script src="supabaseClient.js"></script>
-  
-  <!-- Then load auth.js -->
-  <script src="auth.js"></script>
-  
-  <!-- Finally load profile.js -->
-  <script src="profile.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="profile-new.css">
 </head>
 <body>
-  <!-- Navbar section -->
-  <nav class="navbar">
-    <div class="navbar-left">
-      <a href="home.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png" alt="Logo" class="logo" /></a>
-      <a href="home.html" class="nav-link">Home</a>
-      <a href="#" class="nav-link">Learn</a>
-      <a href="index.html" class="nav-link">Find a teacher</a>
-      <a href="#" class="nav-link">Group Class</a>
-      <a href="#" class="nav-link">Community</a>
-      <a href="#" class="nav-link">More</a>
-    </div>
-    <div class="navbar-right">
-      <input type="text" placeholder="Search..." class="nav-search"/>
-      <!-- Auth UI elements -->
-      <div id="nav-auth">
-        <a href="#" class="nav-link" id="login-btn">Log in</a>
-        <div class="user-initial-container hidden" id="user-initial-container">
-          <div class="user-initial" id="user-initial">U</div>
-          <div class="dropdown hidden" id="user-dropdown">
-            <a href="#" id="my-profile-link">My Profile</a>
-            <a href="#" id="logout-btn">Log out</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- Navigation bar with profile link -->
+  <nav>
+    <!-- Other navigation items -->
+    <a href="#" id="my-profile-link">My Profile</a>
+    <!-- Other navigation items -->
   </nav>
 
-  <!-- Profile Container -->
-  <div class="profile-container">
-    <!-- Loading indicator -->
-    <div id="loading-indicator">
+  <div class="page-container">
+    <div id="loading-indicator" class="loading-indicator">
       <div class="spinner"></div>
       <p>Loading profile...</p>
     </div>
     
-    <!-- Error message (hidden by default) -->
-    <div id="error-message" class="error-message hidden">Unable to load profile.</div>
+    <div id="error-message" class="error-message"></div>
     
-    <!-- Profile content (hidden by default) -->
-    <div id="profile-content" class="hidden">
+    <div id="profile-container" class="profile-container" style="display: none;">
       <div class="profile-header">
         <div class="profile-avatar-container">
-          <img id="profile-avatar" src="https://via.placeholder.com/120" alt="Profile Picture">
+          <img id="profile-image" class="profile-avatar" alt="Profile Image">
         </div>
         <div class="profile-info">
-          <h1 id="profile-name">Student Name</h1>
-          <p id="profile-email">student@example.com</p>
+          <h1 id="profile-name" class="profile-name"></h1>
+          <p id="profile-email" class="profile-email"></p>
         </div>
       </div>
       
-      <div class="profile-details">
-        <h2>Student Profile</h2>
-        <div class="profile-section">
-          <p>Member since: <span id="profile-created"></span></p>
+      <div class="profile-card">
+        <div class="card-header">
+          <h2>Bio</h2>
+        </div>
+        <div class="card-body">
+          <p id="profile-bio" class="profile-bio"></p>
+        </div>
+      </div>
+
+      <!-- Enhanced profile sections -->
+      <div class="profile-card">
+        <div class="card-header">
+          <h2>Skills</h2>
+        </div>
+        <div class="card-body" id="profile-skills">
+          <div class="tags-container">
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">HTML/CSS</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Supabase</span>
+            <span class="skill-tag">UI/UX Design</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="profile-card">
+        <div class="card-header">
+          <h2>Education</h2>
+        </div>
+        <div class="card-body">
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3>Computer Science</h3>
+                <p class="timeline-date">2020 - Present</p>
+                <p>University of Technology</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3>High School Diploma</h3>
+                <p class="timeline-date">2016 - 2020</p>
+                <p>Lincoln High School</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="profile-card">
+        <div class="card-header">
+          <h2>Contact Information</h2>
+        </div>
+        <div class="card-body">
+          <div class="contact-grid">
+            <div class="contact-item">
+              <div class="contact-icon">📱</div>
+              <div class="contact-details">
+                <h4>Phone</h4>
+                <p>+1 (555) 123-4567</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📧</div>
+              <div class="contact-details">
+                <h4>Email</h4>
+                <p id="contact-email"></p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🌍</div>
+              <div class="contact-details">
+                <h4>Website</h4>
+                <p><a href="#">example.com</a></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    
+    <div class="edit-profile-fab" id="edit-profile-button">
+      <span>✏️</span>
+    </div>
   </div>
-  
-  <!-- Add debugging tool to verify Supabase connection -->
-  <script>
-    // After a short delay, check and report on Supabase client status
-    setTimeout(function() {
-      console.log('🧪 Supabase client availability check:', !!window.supabaseClient);
-      
-      if (window.supabaseClient) {
-        // Test the connection with a ping
-        window.supabaseClient
-          .from('profiles')
-          .select('count(*)', { count: 'exact', head: true })
-          .then(function(response) {
-            console.log('🧪 Supabase connection test result:', response);
-          })
-          .catch(function(error) {
-            console.error('🧪 Supabase connection test error:', error);
-          });
-      }
-    }, 1000);
-  </script>
+
+  <!-- Scripts in correct order - no type="module" -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="auth.js"></script>
+  <script src="profile.js"></script>
 </body>
 </html>

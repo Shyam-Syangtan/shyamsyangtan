@@ -1,19 +1,24 @@
 console.log("🚀 Main script loading...");
 
-import { checkAndUpdateSession, signInWithGoogle } from './auth.js';
-import { supabaseClient } from './supabaseClient.js';
-
-// Fetch tutors from Supabase instead of using a hardcoded array
+// Fetch tutors from Supabase using global window.supabaseClient
 async function fetchTutors() {
-  const { data, error } = await supabaseClient
+  if (!window.supabaseClient) {
+    console.error('❌ Supabase client not available! Check script loading order.');
+    return [];
+  }
+  
+  const { data, error } = await window.supabaseClient
     .from('tutors')
     .select('*')
     .order('created_at', { ascending: false });
-      console.log("Fetched tutors:", data, "Error:", error);
-    if (error) {
+  
+  console.log("Fetched tutors:", data, "Error:", error);
+  
+  if (error) {
     console.error('❌ Error fetching tutors:', error);
     return [];
   }
+  
   return data;
 }
 
@@ -102,14 +107,14 @@ function openInNewTab(tutorName) {
 
 document.addEventListener('DOMContentLoaded', async () => {
   console.log("📄 DOM fully loaded");
-  const session = await checkAndUpdateSession();
+  const session = await window.checkAndUpdateSession();
   console.log(session ? "🔓 User is logged in as: " + session.user.email : "🔒 No user logged in");
   const loginBtn = document.getElementById('login-btn');
   if (loginBtn) {
     loginBtn.addEventListener('click', async (e) => {
       e.preventDefault();
       console.log('🖱️ Login button clicked');
-      await signInWithGoogle();
+      await window.signInWithGoogle();
     });
   }
   await renderTutors();
@@ -151,6 +156,30 @@ function updateSidebar(card) {
   const sidebarTop = cardRect.top + window.scrollY;
   videoSection.style.top = `${sidebarTop}px`;
 }
+
+// Function to update the "My Profile" link when a user session exists
+function updateProfileLink(session) {
+  const myProfileLink = document.getElementById('my-profile-link');
+  if (myProfileLink && session && session.user && session.user.id) {
+    myProfileLink.href = `profile.html?id=${session.user.id}`;
+  }
+}
+
+// Add this to your session handling code
+window.supabaseClient.auth.onAuthStateChange((event, session) => {
+  // ...existing auth state change handling...
+  
+  if (session) {
+    updateProfileLink(session);
+  }
+});
+
+// Also update the link on initial page load if a session exists
+window.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+  if (session) {
+    updateProfileLink(session);
+  }
+});
 
 console.log("📢 Main script loaded");
 

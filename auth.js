@@ -1,10 +1,8 @@
 /**
  * Authentication utilities for Supabase
  * Handles login, session management, and UI updates
+ * Uses the globally available window.supabaseClient
  */
-
-// Get reference to the globally available supabase client
-const supabase = window.supabaseClient;
 
 /**
  * Check for active session and update UI accordingly
@@ -20,7 +18,7 @@ async function checkAndUpdateSession() {
       
       try {
         // Get session from URL parameters
-        const { data, error } = await supabase.auth.getSessionFromUrl();
+        const { data, error } = await window.supabaseClient.auth.getSessionFromUrl();
         
         if (error) {
           console.error('❌ Error getting session from URL:', error.message);
@@ -46,7 +44,7 @@ async function checkAndUpdateSession() {
     
     // Always check for existing session
     console.log('🔍 Checking for existing session in browser...');
-    const { data: { session }, error } = await supabase.auth.getSession();
+    const { data: { session }, error } = await window.supabaseClient.auth.getSession();
     
     if (error) {
       console.error('❌ Error fetching session:', error.message);
@@ -103,12 +101,8 @@ function updateUIWithUserSession(session) {
   
   console.log('🎨 Updated UI for logged-in user:', initial);
   
-  // FIXED: Correctly set "My Profile" link with id parameter (not user_id)
-  const myProfileLink = document.querySelector('#user-dropdown a[id="my-profile-link"]');
-  if (myProfileLink && user.id) {
-    myProfileLink.href = `profile.html?id=${user.id}`;
-    console.log('🔗 Set profile link to:', myProfileLink.href);
-  }
+  // Update all "My Profile" links with user ID
+  updateProfileLink(session);
   
   // Set up dropdown toggle functionality
   setupDropdownBehavior();
@@ -188,7 +182,7 @@ async function signInWithGoogle() {
   console.log('🚀 Starting Google Sign-In flow...');
   
   try {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await window.supabaseClient.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: window.location.origin + window.location.pathname
@@ -214,7 +208,7 @@ async function signInWithGoogle() {
 async function signOut() {
   console.log('🚪 Signing out...');
   try {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await window.supabaseClient.auth.signOut();
     
     if (error) {
       console.error('❌ Sign-out error:', error.message);
@@ -246,92 +240,63 @@ async function createUserProfile(user) {
   console.log('👤 Creating/updating profile for user:', user.email);
   
   try {
-    // First check if profile already exists
-    const { data: existingProfile, error: fetchError } = await supabase
-      .from('user_profiles') // IMPORTANT: This should match your table name exactly
-      .select('*')
-      .eq('user_id', user.id)
-      .single();
-    
-    if (fetchError && fetchError.code !== 'PGRST116') { // PGRST116 = row not found
-      console.error('❌ Error checking existing profile:', fetchError);
-      return;
-    }
-    
-    // Profile data structure
+    // Create profile data structure matching the profiles table schema
     const profileData = {
-      user_id: user.id,
+      id: user.id,
       email: user.email,
-      display_name: user.user_metadata?.full_name || user.email.split('@')[0],
+      name: user.user_metadata?.full_name || user.email.split('@')[0],
       avatar_url: user.user_metadata?.avatar_url || null,
-      last_login: new Date().toISOString()
+      created_at: new Date().toISOString()
     };
     
-    if (existingProfile) {
-      // Update existing profile
-      console.log('🔄 Updating existing profile');
-      
-      const { error: updateError } = await supabase
-        .from('user_profiles')
-        .update(profileData)
-        .eq('user_id', user.id);
-      
-      if (updateError) {
-        console.error('❌ Error updating profile:', updateError);
-      } else {
-        console.log('✅ Profile updated successfully');
-      }
+    // Use upsert to create or update the profile
+    console.log('🔄 Creating or updating profile with upsert');
+    
+    const { error } = await window.supabaseClient
+      .from('profiles')
+      .upsert([profileData]);
+    
+    if (error) {
+      console.error('❌ Error upserting profile:', error);
     } else {
-      // Create new profile
-      console.log('➕ Creating new user profile');
-      
-      // Add created_at for new profiles
-      profileData.created_at = new Date().toISOString();
-      
-      const { error: insertError } = await supabase
-        .from('user_profiles')
-        .insert([profileData]);
-      
-      if (insertError) {
-        console.error('❌ Error creating profile:', insertError);
-      } else {
-        console.log('✅ New profile created successfully');
-      }
+      console.log('✅ Profile upsert successful');
     }
   } catch (err) {
     console.error('❌ Exception during profile creation:', err);
   }
 }
 
-// Export functions
-export {
-  checkAndUpdateSession,
-  signInWithGoogle,
-  signOut
-};
+// Function to update the "My Profile" link
+function updateProfileLink(session) {
+  const myProfileLink = document.getElementById('my-profile-link');
+  if (myProfileLink && session && session.user && session.user.id) {
+    myProfileLink.href = `profile.html?id=${session.user.id}`;
+    console.log("Profile link updated:", myProfileLink.href);
+  } else {
+    console.warn("⚠️ No user ID available to update profile links");
+  }
+}
 
-// Fix for "My Profile" link - runs when auth.js loads
-(function() {
-  // Wait for DOM to be loaded
-  document.addEventListener('DOMContentLoaded', function() {
-    // Check if we have a Supabase client and look for an existing session
-    if (window.supabaseClient) {
-      window.supabaseClient.auth.getSession().then(function(response) {
-        const { data } = response;
-        if (data && data.session && data.session.user) {
-          // Fix the "My Profile" link to use 'id' param instead of 'user_id'
-          const myProfileLink = document.getElementById('my-profile-link');
-          if (myProfileLink) {
-            myProfileLink.href = `profile.html?id=${data.session.user.id}`;
-            console.log('Fixed profile link to use correct "id" parameter:', myProfileLink.href);
-          }
-        }
-      }).catch(function(err) {
-        console.error('Error checking session for profile link fix:', err);
-      });
+// Make sure this runs on page load
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("Checking for session on page load");
+  window.supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    if (session) {
+      console.log("Session found on page load");
+      updateProfileLink(session);
+    } else {
+      console.log("No session found on page load");
     }
   });
-})();
+});
+
+// Also run when auth state changes
+window.supabaseClient.auth.onAuthStateChange((event, session) => {
+  console.log("Auth state changed:", event);
+  if (session) {
+    updateProfileLink(session);
+  }
+});
 
 /**
  * Debug script to check URL parameters
@@ -352,44 +317,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-/**
- * Update UI elements to show logged-in state
- * @param {Object} session - The user session object
- */
-function updateUIWithUserSession(session) {
-  if (!session || !session.user) {
-    console.error('❌ Invalid session object');
-    return;
-  }
-  
-  const loginBtn = document.getElementById('login-btn');
-  const userInitialContainer = document.getElementById('user-initial-container');
-  const userInitial = document.getElementById('user-initial');
-  
-  if (!loginBtn || !userInitialContainer || !userInitial) {
-    console.warn('⚠️ UI elements not found for auth update');
-    return;
-  }
-  
-  const user = session.user;
-  const email = user.email || '';
-  const name = user.user_metadata?.full_name || email.split('@')[0];
-  const initial = name.charAt(0).toUpperCase();
-  
-  // Hide login button, show user initial
-  loginBtn.classList.add('hidden');
-  userInitialContainer.classList.remove('hidden');
-  userInitial.textContent = initial;
-  
-  console.log('🎨 Updated UI for logged-in user:', initial);
-  
-  // FIXED: Correctly set "My Profile" link with id parameter (not user_id)
-  const myProfileLink = document.querySelector('#user-dropdown a[id="my-profile-link"]');
-  if (myProfileLink && user.id) {
-    myProfileLink.href = `profile.html?id=${user.id}`;
-    console.log('🔗 Set profile link to:', myProfileLink.href);
-  }
-  
-  // Set up dropdown toggle functionality
-  setupDropdownBehavior();
-}
+// Make authentication functions available globally
+window.checkAndUpdateSession = checkAndUpdateSession;
+window.signInWithGoogle = signInWithGoogle;
+window.signOut = signOut;
+window.updateProfileLink = updateProfileLink;
+
+console.log('✅ Auth module loaded and functions exposed globally');
+

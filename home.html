@@ -24,8 +24,17 @@
     </div>
     <div class="navbar-right">
       <input type="text" placeholder="Search..." class="nav-search" />
-      <a href="login.html" class="nav-link">Log in</a>
-      <div class="nav-avatar"></div>
+      <!-- Auth UI elements -->
+      <div id="nav-auth">
+        <a href="login.html" class="nav-link" id="login-btn">Log in</a>
+        <div class="user-initial-container hidden" id="user-initial-container">
+          <div class="user-initial" id="user-initial">U</div>
+          <div class="dropdown hidden" id="user-dropdown">
+            <a href="#" id="my-profile-link">My Profile</a>
+            <a href="#" id="logout-btn">Log out</a>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -68,5 +77,10 @@
       });
     }
   </script>
+  
+  <!-- Scripts at the bottom of body -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>
