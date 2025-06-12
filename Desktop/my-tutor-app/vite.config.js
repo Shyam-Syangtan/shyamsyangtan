@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/indian-language-tutors/',
+  base: '/my-tutor-app/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
