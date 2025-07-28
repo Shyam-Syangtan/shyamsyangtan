@@ -175,12 +175,6 @@ export default function ContactSection({
           </div>
         </div>
       </div>
-
-      <div className="mt-6 pt-4 border-t border-gray-200">
-        <p className="text-sm text-gray-600 text-center">
-          Please contact me directly to schedule lessons and arrange payment
-        </p>
-      </div>
     </div>
   );
 }
