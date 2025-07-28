@@ -20,7 +20,7 @@ export default function ProfileSection({
   description = "Passionate language teacher from Delhi, India. Currently learning Chinese and always excited to share knowledge with students. Specializing in conversational fluency and cultural exchange.",
   lessonsCount = 4000,
   location = "Delhi, India",
-  profileImage = "/images/profile.svg"
+  profileImage = "/profile.jpg"
 }: ProfileSectionProps) {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -94,9 +94,9 @@ export default function ProfileSection({
             </div>
 
             {/* Contact Button */}
-            <div className="mt-4 md:mt-0 md:ml-6">
+            <div className="mt-4 md:mt-0 md:ml-6 flex flex-col gap-2">
               <Link href="/contact">
-                <button className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
                   Contact
                 </button>
               </Link>
@@ -107,7 +107,7 @@ export default function ProfileSection({
                     videoSection.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className="w-full md:w-auto mt-2 md:mt-2 md:ml-2 border border-gray-300 hover:border-gray-400 text-gray-700 px-6 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                className="w-full border border-gray-300 hover:border-gray-400 text-gray-700 px-6 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
