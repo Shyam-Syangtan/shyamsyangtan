@@ -44,7 +44,7 @@ export default function AboutPage() {
                 {/* Basic Info */}
                 <div className="mb-6">
                   <p className="text-gray-600 mb-2">From India</p>
-                  <p className="text-gray-600 mb-4">Living in Delhi, India (13:05 UTC+05:30)</p>
+                  <p className="text-gray-600 mb-4">Living in Delhi, India (UTC+05:30)</p>
                   <p className="text-gray-500 text-sm">iTalki teacher since Aug 13, 2021</p>
                 </div>
 
