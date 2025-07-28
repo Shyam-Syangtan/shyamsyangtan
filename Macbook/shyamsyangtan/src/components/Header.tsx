@@ -25,11 +25,11 @@ export default function Header() {
             >
               Home
             </Link>
-            <Link 
-              href="/ebooks" 
+            <Link
+              href="/about"
               className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
             >
-              Ebooks
+              About
             </Link>
             <Link 
               href="/contact" 
@@ -67,12 +67,12 @@ export default function Header() {
               >
                 Home
               </Link>
-              <Link 
-                href="/ebooks" 
+              <Link
+                href="/about"
                 className="text-gray-700 hover:text-blue-600 block px-3 py-2 text-base font-medium transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Ebooks
+                About
               </Link>
               <Link 
                 href="/contact" 
