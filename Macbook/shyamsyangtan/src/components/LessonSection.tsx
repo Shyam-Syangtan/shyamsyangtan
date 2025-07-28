@@ -49,7 +49,7 @@ export default function LessonSection({
               <div className="text-2xl font-bold text-gray-900 group-hover:text-blue-600">
                 {option.duration} min
               </div>
-              <div className="text-3xl font-bold text-blue-600 mt-2">
+              <div className="text-2xl font-bold text-blue-600 mt-2">
                 ${option.price}
               </div>
               <div className="text-sm text-gray-600 mt-1">
