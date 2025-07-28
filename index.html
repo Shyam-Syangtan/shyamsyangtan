@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TutorConnect - Learn Indian Languages</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="index.html"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Italki_logo.svg/2560px-Italki_logo.svg.png" alt="Logo" class="logo" /></a>
+      <a href="find-tutors.html" class="nav-link">Find a Tutor</a>
+    </div>
+    <div class="navbar-right">
+      <!-- Auth UI elements -->
+      <div id="nav-auth">
+        <a href="login.html" class="nav-link" id="login-btn">Log in</a>
+        <div class="user-initial-container hidden" id="user-initial-container">
+          <div class="user-initial" id="user-initial">U</div>
+          <div class="dropdown hidden" id="user-dropdown">
+            <a href="profile.html" id="my-profile-link">My Profile</a>
+            <a href="#" id="logout-btn">Sign Out</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <h1>Learn Indian Languages with Expert Tutors</h1>
+      <p>Connect with native speakers and master Hindi, Punjabi, Bengali, Tamil, and more through personalized 1-on-1 lessons.</p>
+      <a href="find-tutors.html" class="cta-button">Find a Tutor</a>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <h2>Why Choose TutorConnect?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">👨‍🏫</div>
+          <h3>Expert Tutors</h3>
+          <p>Learn from verified native speakers with years of teaching experience.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3>Flexible Booking</h3>
+          <p>Schedule lessons at your convenience with our easy booking system.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎥</div>
+          <h3>Interactive Learning</h3>
+          <p>Engage in immersive video lessons tailored to your learning style.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <h2>Ready to Start Learning?</h2>
+      <p>Join thousands of students learning Indian languages with our expert tutors.</p>
+      <a href="find-tutors.html" class="cta-button">Find a Tutor</a>
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="auth.js"></script>
+
+  <script>
+    // Handle immediate redirect after OAuth login
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if this is an OAuth callback and we have a stored redirect
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectUrl = localStorage.getItem('redirect_after_login');
+
+      if ((urlParams.has('access_token') || urlParams.has('code')) && redirectUrl) {
+        console.log('🔄 OAuth callback detected on index.html, checking for session...');
+
+        // Wait for auth to initialize and then redirect
+        const checkAndRedirect = async () => {
+          try {
+            // Wait for Supabase to be available
+            let attempts = 0;
+            while (!window.supabaseClient && attempts < 20) {
+              await new Promise(resolve => setTimeout(resolve, 500));
+              attempts++;
+            }
+
+            if (window.supabaseClient) {
+              const { data: { session } } = await window.supabaseClient.auth.getSession();
+              if (session) {
+                console.log('🔄 Session found, redirecting to:', redirectUrl);
+                localStorage.removeItem('redirect_after_login');
+                window.location.href = redirectUrl;
+              }
+            }
+          } catch (error) {
+            console.error('Error checking session for redirect:', error);
+          }
+        };
+
+        // Start checking after a short delay
+        setTimeout(checkAndRedirect, 1000);
+      } else {
+        // No stored redirect, but check if this is OAuth callback
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('access_token') || urlParams.has('code')) {
+          console.log('🔄 OAuth callback detected but no stored redirect, redirecting to find-tutors.html...');
+
+          // Wait for auth system to be ready and then redirect
+          setTimeout(async () => {
+            if (window.supabaseClient) {
+              const { data: { session } } = await window.supabaseClient.auth.getSession();
+              if (session) {
+                console.log('🔄 Session found, redirecting to find-tutors.html');
+                window.location.href = 'find-tutors.html';
+              }
+            }
+          }, 2000); // Wait longer to ensure auth.js is fully initialized
+        } else {
+          // Regular page load - ensure auth UI is updated
+          console.log('🔄 Regular page load, ensuring auth UI is updated...');
+          setTimeout(async () => {
+            if (window.checkAndUpdateSession) {
+              console.log('🔄 Checking auth session on page load...');
+              await window.checkAndUpdateSession();
+            }
+          }, 1500);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
