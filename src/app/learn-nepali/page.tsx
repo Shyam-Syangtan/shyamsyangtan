@@ -13,27 +13,27 @@ export default function LearnNepaliPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <main className="max-w-6xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Learn Nepali</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Learn Nepali</h1>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6 sm:mb-8">
           <div className="border-b border-gray-200">
-            <nav className="flex space-x-8 px-6 overflow-x-auto">
+            <nav className="flex space-x-4 sm:space-x-8 px-4 sm:px-6 overflow-x-auto">
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors flex items-center space-x-2 ${
+                  className={`py-3 sm:py-4 px-1 sm:px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors flex items-center space-x-1 sm:space-x-2 ${
                     activeSection === section.id
                       ? 'border-blue-500 text-gray-900'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      : 'border-transparent text-gray-700 hover:text-gray-900 hover:border-gray-300'
                   }`}
                 >
-                  <span className="text-lg">{section.icon}</span>
+                  <span className="text-base sm:text-lg">{section.icon}</span>
                   <span>{section.label}</span>
                 </button>
               ))}
@@ -41,23 +41,20 @@ export default function LearnNepaliPage() {
           </div>
 
           {/* Content */}
-          <div className="p-8">
+          <div className="p-4 sm:p-6 lg:p-8">
             {activeSection === 'conversations' && (
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">Nepali Conversations</h2>
-                
-
 
                 {/* Conversation Lessons */}
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                   {/* Basic Greetings */}
-                  <div className="bg-white border border-gray-200 rounded-lg p-6">
+                  <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-4">1. Basic Greetings & Introductions</h3>
                     <div className="space-y-4">
-                      <div className="grid md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                           <h4 className="font-medium text-gray-800 mb-2">English</h4>
-                          <div className="bg-gray-50 p-3 rounded">
+                          <div className="bg-gray-50 p-3 sm:p-4 rounded">
                             <p><strong>A:</strong> Hello! How are you?</p>
                             <p><strong>B:</strong> I'm fine, thank you. And you?</p>
                             <p><strong>A:</strong> I'm good too. What's your name?</p>
@@ -66,7 +63,7 @@ export default function LearnNepaliPage() {
                         </div>
                         <div>
                           <h4 className="font-medium text-gray-800 mb-2">Nepali</h4>
-                          <div className="bg-blue-50 p-3 rounded">
+                          <div className="bg-blue-50 p-3 sm:p-4 rounded">
                             <p><strong>A:</strong> नमस्ते! तपाईं कस्तो हुनुहुन्छ?</p>
                             <p><strong>B:</strong> म ठिक छु, धन्यवाद। अनि तपाईं?</p>
                             <p><strong>A:</strong> म पनि ठिक छु। तपाईंको नाम के हो?</p>
@@ -90,10 +87,10 @@ export default function LearnNepaliPage() {
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-4">2. At a Restaurant</h3>
                     <div className="space-y-4">
-                      <div className="grid md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                           <h4 className="font-medium text-gray-800 mb-2">English</h4>
-                          <div className="bg-gray-50 p-3 rounded">
+                          <div className="bg-gray-50 p-3 sm:p-4 rounded">
                             <p><strong>Waiter:</strong> What would you like to order?</p>
                             <p><strong>Customer:</strong> I would like dal bhat, please.</p>
                             <p><strong>Waiter:</strong> Would you like some tea?</p>
@@ -102,7 +99,7 @@ export default function LearnNepaliPage() {
                         </div>
                         <div>
                           <h4 className="font-medium text-gray-800 mb-2">Nepali</h4>
-                          <div className="bg-blue-50 p-3 rounded">
+                          <div className="bg-blue-50 p-3 sm:p-4 rounded">
                             <p><strong>वेटर:</strong> तपाईं के अर्डर गर्नुहुन्छ?</p>
                             <p><strong>ग्राहक:</strong> मलाई दालभात चाहिन्छ।</p>
                             <p><strong>वेटर:</strong> चिया खानुहुन्छ?</p>
@@ -126,10 +123,10 @@ export default function LearnNepaliPage() {
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-4">3. Asking for Directions</h3>
                     <div className="space-y-4">
-                      <div className="grid md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                           <h4 className="font-medium text-gray-800 mb-2">English</h4>
-                          <div className="bg-gray-50 p-3 rounded">
+                          <div className="bg-gray-50 p-3 sm:p-4 rounded">
                             <p><strong>Tourist:</strong> Excuse me, where is the bus station?</p>
                             <p><strong>Local:</strong> Go straight, then turn right.</p>
                             <p><strong>Tourist:</strong> How far is it?</p>
@@ -138,7 +135,7 @@ export default function LearnNepaliPage() {
                         </div>
                         <div>
                           <h4 className="font-medium text-gray-800 mb-2">Nepali</h4>
-                          <div className="bg-blue-50 p-3 rounded">
+                          <div className="bg-blue-50 p-3 sm:p-4 rounded">
                             <p><strong>पर्यटक:</strong> माफ गर्नुहोस्, बस स्टेशन कहाँ छ?</p>
                             <p><strong>स्थानीय:</strong> सिधा जानुहोस्, त्यसपछि दायाँ मोड्नुहोस्।</p>
                             <p><strong>पर्यटक:</strong> कति टाढा छ?</p>
@@ -175,8 +172,6 @@ export default function LearnNepaliPage() {
 
             {activeSection === 'grammar' && (
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">Nepali Grammar</h2>
-                
 
 
                 {/* Grammar Topics */}
@@ -189,36 +184,36 @@ export default function LearnNepaliPage() {
                         <h4 className="font-medium text-gray-800 mb-3">English vs Nepali Word Order</h4>
                         <div className="space-y-3">
                           <div>
-                            <p className="text-sm text-gray-600">English (SVO):</p>
+                            <p className="text-sm text-gray-800">English (SVO):</p>
                             <p className="font-medium">I <span className="text-blue-600">(Subject)</span> eat <span className="text-green-600">(Verb)</span> rice <span className="text-red-600">(Object)</span></p>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-600">Nepali (SOV):</p>
+                            <p className="text-sm text-gray-800">Nepali (SOV):</p>
                             <p className="font-medium">म <span className="text-blue-600">(Subject)</span> भात <span className="text-red-600">(Object)</span> खान्छु <span className="text-green-600">(Verb)</span></p>
-                            <p className="text-sm text-gray-500">Ma bhat khanchu</p>
+                            <p className="text-sm text-gray-700">Ma bhat khanchu</p>
                           </div>
                         </div>
                       </div>
                       
-                      <div className="grid md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                           <h5 className="font-medium text-gray-800 mb-2">More Examples:</h5>
                           <div className="space-y-2 text-sm">
                             <div className="bg-blue-50 p-2 rounded">
                               <p><strong>English:</strong> She reads books</p>
                               <p><strong>Nepali:</strong> उनी किताब पढ्छिन्</p>
-                              <p className="text-gray-600">Uni kitab padhchin</p>
+                              <p className="text-gray-800">Uni kitab padhchin</p>
                             </div>
                             <div className="bg-blue-50 p-2 rounded">
                               <p><strong>English:</strong> We drink water</p>
                               <p><strong>Nepali:</strong> हामी पानी पिउँछौं</p>
-                              <p className="text-gray-600">Hami pani piuncha</p>
+                              <p className="text-gray-800">Hami pani piuncha</p>
                             </div>
                           </div>
                         </div>
                         <div>
                           <h5 className="font-medium text-gray-800 mb-2">Key Points:</h5>
-                          <ul className="text-sm text-gray-700 space-y-1">
+                          <ul className="text-sm text-gray-800 space-y-1">
                             <li>• Verb always comes at the end</li>
                             <li>• Object comes before the verb</li>
                             <li>• Subject can sometimes be omitted</li>
@@ -297,7 +292,7 @@ export default function LearnNepaliPage() {
                     <div className="space-y-4">
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <h4 className="font-medium text-gray-800 mb-3">Present Tense - "To Eat" (खानु - Khanu)</h4>
-                        <div className="grid md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                           <div>
                             <h5 className="text-sm font-medium text-gray-700 mb-2">Singular</h5>
                             <div className="space-y-1 text-sm">
@@ -341,7 +336,7 @@ export default function LearnNepaliPage() {
                   {/* Numbers */}
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-4">4. Numbers (संख्या)</h3>
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div>
                         <h4 className="font-medium text-gray-800 mb-3">1-10</h4>
                         <div className="space-y-2 text-sm">
@@ -395,7 +390,7 @@ export default function LearnNepaliPage() {
                     </div>
                     <div className="mt-4 bg-green-50 p-4 rounded-lg">
                       <h5 className="font-medium text-green-800 mb-2">Larger Numbers:</h5>
-                      <div className="grid md:grid-cols-2 gap-4 text-sm text-green-700">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-sm text-green-700">
                         <div>
                           <p><strong>२० (20)</strong> - बीस (Bees)</p>
                           <p><strong>५० (50)</strong> - पचास (Pachaas)</p>
@@ -416,7 +411,7 @@ export default function LearnNepaliPage() {
                     <div className="space-y-4">
                       <div className="bg-gray-50 p-4 rounded-lg">
                         <h4 className="font-medium text-gray-800 mb-3">Question Words</h4>
-                        <div className="grid md:grid-cols-2 gap-4 text-sm">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-sm">
                           <div className="space-y-2">
                             <p><strong>के (Ke)</strong> - What</p>
                             <p><strong>कहाँ (Kaha)</strong> - Where</p>
@@ -470,7 +465,6 @@ export default function LearnNepaliPage() {
 
             {activeSection === 'vocabulary' && (
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-8">Nepali Vocabulary</h2>
 
 
 
@@ -479,7 +473,7 @@ export default function LearnNepaliPage() {
                   {/* Family Members */}
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-4">👨‍👩‍👧‍👦 Family Members (परिवार)</h3>
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div className="space-y-3">
                         <div className="bg-gray-50 p-3 rounded-lg">
                           <div className="flex justify-between items-center">
@@ -694,7 +688,7 @@ export default function LearnNepaliPage() {
                   {/* Common Verbs */}
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
                     <h3 className="text-xl font-semibold text-gray-900 mb-4">⚡ Common Verbs (क्रियाहरू)</h3>
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div className="space-y-3">
                         <div className="bg-indigo-50 p-3 rounded-lg">
                           <div className="flex justify-between items-center mb-1">
