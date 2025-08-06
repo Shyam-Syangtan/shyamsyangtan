@@ -7,7 +7,8 @@ export default function LearnNepaliPage() {
 
   const sections = [
     { id: 'conversations', label: 'Conversations', icon: '💬' },
-    { id: 'grammar', label: 'Grammar', icon: '📚' }
+    { id: 'grammar', label: 'Grammar', icon: '📚' },
+    { id: 'vocabulary', label: 'Vocabulary', icon: '📖' }
   ];
 
   return (
@@ -480,6 +481,319 @@ export default function LearnNepaliPage() {
                     <li>• Master numbers and question words for practical conversations</li>
                     <li>• Don't worry about perfect grammar initially - focus on communication</li>
                     <li>• Practice writing simple sentences using the patterns you learn</li>
+                  </ul>
+                </div>
+              </div>
+            )}
+
+            {activeSection === 'vocabulary' && (
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-8">Nepali Vocabulary</h2>
+
+                {/* Introduction */}
+                <div className="bg-green-50 border-l-4 border-green-400 p-6 mb-8">
+                  <h3 className="text-lg font-semibold text-green-900 mb-2">Building Your Vocabulary</h3>
+                  <p className="text-green-800">
+                    A strong vocabulary is the foundation of language learning. These essential words will help you
+                    communicate effectively in everyday situations and build confidence in your Nepali conversations.
+                  </p>
+                </div>
+
+                {/* Vocabulary Categories */}
+                <div className="space-y-8">
+                  {/* Family Members */}
+                  <div className="bg-white border border-gray-200 rounded-lg p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">👨‍👩‍👧‍👦 Family Members (परिवार)</h3>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">Father</span>
+                            <span className="text-blue-600">बुवा (Buwa)</span>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">Mother</span>
+                            <span className="text-blue-600">आमा (Aama)</span>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">Brother</span>
+                            <span className="text-blue-600">दाजु/भाइ (Daju/Bhai)</span>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">Sister</span>
+                            <span className="text-blue-600">दिदी/बहिनी (Didi/Bahini)</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">Grandfather</span>
+                            <span className="text-blue-600">हजुरबुवा (Hajurbuwa)</span>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">Grandmother</span>
+                            <span className="text-blue-600">हजुरआमा (Hajuraama)</span>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">Son</span>
+                            <span className="text-blue-600">छोरा (Chhora)</span>
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center">
+                            <span className="font-medium">Daughter</span>
+                            <span className="text-blue-600">छोरी (Chhori)</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-4 bg-yellow-50 p-4 rounded-lg">
+                      <p className="text-sm text-yellow-800">
+                        <strong>Example:</strong> मेरो बुवाको नाम राम हो। (Mero buwako naam Ram ho.) - My father's name is Ram.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Food & Drinks */}
+                  <div className="bg-white border border-gray-200 rounded-lg p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">🍽️ Food & Drinks (खाना र पेय)</h3>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div className="space-y-2">
+                        <h4 className="font-medium text-gray-800 mb-2">Staple Foods</h4>
+                        <div className="space-y-2 text-sm">
+                          <div className="bg-orange-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Rice</span>
+                              <span className="text-orange-600">भात (Bhat)</span>
+                            </div>
+                          </div>
+                          <div className="bg-orange-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Lentils</span>
+                              <span className="text-orange-600">दाल (Dal)</span>
+                            </div>
+                          </div>
+                          <div className="bg-orange-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Bread</span>
+                              <span className="text-orange-600">रोटी (Roti)</span>
+                            </div>
+                          </div>
+                          <div className="bg-orange-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Vegetables</span>
+                              <span className="text-orange-600">तरकारी (Tarkari)</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <h4 className="font-medium text-gray-800 mb-2">Fruits</h4>
+                        <div className="space-y-2 text-sm">
+                          <div className="bg-red-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Apple</span>
+                              <span className="text-red-600">स्याउ (Syau)</span>
+                            </div>
+                          </div>
+                          <div className="bg-red-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Banana</span>
+                              <span className="text-red-600">केरा (Kera)</span>
+                            </div>
+                          </div>
+                          <div className="bg-red-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Orange</span>
+                              <span className="text-red-600">सुन्तला (Suntala)</span>
+                            </div>
+                          </div>
+                          <div className="bg-red-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Mango</span>
+                              <span className="text-red-600">आँप (Aamp)</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <h4 className="font-medium text-gray-800 mb-2">Drinks</h4>
+                        <div className="space-y-2 text-sm">
+                          <div className="bg-blue-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Water</span>
+                              <span className="text-blue-600">पानी (Pani)</span>
+                            </div>
+                          </div>
+                          <div className="bg-blue-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Tea</span>
+                              <span className="text-blue-600">चिया (Chiya)</span>
+                            </div>
+                          </div>
+                          <div className="bg-blue-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Milk</span>
+                              <span className="text-blue-600">दूध (Dudh)</span>
+                            </div>
+                          </div>
+                          <div className="bg-blue-50 p-2 rounded">
+                            <div className="flex justify-between">
+                              <span>Coffee</span>
+                              <span className="text-blue-600">कफी (Coffee)</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-4 bg-yellow-50 p-4 rounded-lg">
+                      <p className="text-sm text-yellow-800">
+                        <strong>Example:</strong> म चिया खान्छु। (Ma chiya khanchu.) - I drink tea.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Colors */}
+                  <div className="bg-white border border-gray-200 rounded-lg p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">🎨 Colors (रंगहरू)</h3>
+                    <div className="grid md:grid-cols-4 gap-3">
+                      <div className="bg-red-100 border-2 border-red-300 p-3 rounded-lg text-center">
+                        <div className="w-8 h-8 bg-red-500 rounded-full mx-auto mb-2"></div>
+                        <p className="font-medium">Red</p>
+                        <p className="text-sm text-red-700">रातो (Rato)</p>
+                      </div>
+                      <div className="bg-blue-100 border-2 border-blue-300 p-3 rounded-lg text-center">
+                        <div className="w-8 h-8 bg-blue-500 rounded-full mx-auto mb-2"></div>
+                        <p className="font-medium">Blue</p>
+                        <p className="text-sm text-blue-700">नीलो (Nilo)</p>
+                      </div>
+                      <div className="bg-green-100 border-2 border-green-300 p-3 rounded-lg text-center">
+                        <div className="w-8 h-8 bg-green-500 rounded-full mx-auto mb-2"></div>
+                        <p className="font-medium">Green</p>
+                        <p className="text-sm text-green-700">हरियो (Hariyo)</p>
+                      </div>
+                      <div className="bg-yellow-100 border-2 border-yellow-300 p-3 rounded-lg text-center">
+                        <div className="w-8 h-8 bg-yellow-500 rounded-full mx-auto mb-2"></div>
+                        <p className="font-medium">Yellow</p>
+                        <p className="text-sm text-yellow-700">पहेंलो (Pahelo)</p>
+                      </div>
+                      <div className="bg-purple-100 border-2 border-purple-300 p-3 rounded-lg text-center">
+                        <div className="w-8 h-8 bg-purple-500 rounded-full mx-auto mb-2"></div>
+                        <p className="font-medium">Purple</p>
+                        <p className="text-sm text-purple-700">बैजनी (Baijani)</p>
+                      </div>
+                      <div className="bg-pink-100 border-2 border-pink-300 p-3 rounded-lg text-center">
+                        <div className="w-8 h-8 bg-pink-500 rounded-full mx-auto mb-2"></div>
+                        <p className="font-medium">Pink</p>
+                        <p className="text-sm text-pink-700">गुलाबी (Gulabi)</p>
+                      </div>
+                      <div className="bg-gray-100 border-2 border-gray-300 p-3 rounded-lg text-center">
+                        <div className="w-8 h-8 bg-black rounded-full mx-auto mb-2"></div>
+                        <p className="font-medium">Black</p>
+                        <p className="text-sm text-gray-700">कालो (Kalo)</p>
+                      </div>
+                      <div className="bg-gray-50 border-2 border-gray-300 p-3 rounded-lg text-center">
+                        <div className="w-8 h-8 bg-white border border-gray-400 rounded-full mx-auto mb-2"></div>
+                        <p className="font-medium">White</p>
+                        <p className="text-sm text-gray-700">सेतो (Seto)</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 bg-yellow-50 p-4 rounded-lg">
+                      <p className="text-sm text-yellow-800">
+                        <strong>Example:</strong> मेरो मनपर्ने रंग नीलो हो। (Mero manparne rang nilo ho.) - My favorite color is blue.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Common Verbs */}
+                  <div className="bg-white border border-gray-200 rounded-lg p-6">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">⚡ Common Verbs (क्रियाहरू)</h3>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-3">
+                        <div className="bg-indigo-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="font-medium">To eat</span>
+                            <span className="text-indigo-600">खानु (Khanu)</span>
+                          </div>
+                          <p className="text-xs text-indigo-700">म खान्छु (Ma khanchu) - I eat</p>
+                        </div>
+                        <div className="bg-indigo-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="font-medium">To drink</span>
+                            <span className="text-indigo-600">पिउनु (Piunu)</span>
+                          </div>
+                          <p className="text-xs text-indigo-700">म पिउँछु (Ma piunchu) - I drink</p>
+                        </div>
+                        <div className="bg-indigo-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="font-medium">To go</span>
+                            <span className="text-indigo-600">जानु (Janu)</span>
+                          </div>
+                          <p className="text-xs text-indigo-700">म जान्छु (Ma janchu) - I go</p>
+                        </div>
+                        <div className="bg-indigo-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="font-medium">To come</span>
+                            <span className="text-indigo-600">आउनु (Aunu)</span>
+                          </div>
+                          <p className="text-xs text-indigo-700">म आउँछु (Ma aunchu) - I come</p>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="bg-indigo-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="font-medium">To see</span>
+                            <span className="text-indigo-600">हेर्नु (Hernu)</span>
+                          </div>
+                          <p className="text-xs text-indigo-700">म हेर्छु (Ma herchu) - I see</p>
+                        </div>
+                        <div className="bg-indigo-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="font-medium">To speak</span>
+                            <span className="text-indigo-600">बोल्नु (Bolnu)</span>
+                          </div>
+                          <p className="text-xs text-indigo-700">म बोल्छु (Ma bolchu) - I speak</p>
+                        </div>
+                        <div className="bg-indigo-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="font-medium">To read</span>
+                            <span className="text-indigo-600">पढ्नु (Padhnu)</span>
+                          </div>
+                          <p className="text-xs text-indigo-700">म पढ्छु (Ma padhchu) - I read</p>
+                        </div>
+                        <div className="bg-indigo-50 p-3 rounded-lg">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="font-medium">To write</span>
+                            <span className="text-indigo-600">लेख्नु (Lekhnu)</span>
+                          </div>
+                          <p className="text-xs text-indigo-700">म लेख्छु (Ma lekhchu) - I write</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Vocabulary Tips */}
+                <div className="mt-8 bg-green-50 border border-green-200 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-green-900 mb-4">💡 Vocabulary Learning Tips</h3>
+                  <ul className="text-green-800 space-y-2">
+                    <li>• Learn 5-10 new words daily and review them regularly</li>
+                    <li>• Practice using new vocabulary in simple sentences</li>
+                    <li>• Group related words together (like family members or colors)</li>
+                    <li>• Use flashcards or spaced repetition apps for better retention</li>
+                    <li>• Try to use new words in conversations as soon as possible</li>
+                    <li>• Focus on high-frequency words that you'll use most often</li>
                   </ul>
                 </div>
               </div>
