@@ -15,12 +15,8 @@ export default function LearnNepaliPage() {
     <div className="min-h-screen bg-gray-50">
       <main className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Learn Nepali</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Master the beautiful Nepali language through practical conversations and essential grammar. 
-            Start your journey to fluency with structured lessons and real-world examples.
-          </p>
         </div>
 
         {/* Navigation Tabs */}
@@ -50,14 +46,7 @@ export default function LearnNepaliPage() {
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-8">Nepali Conversations</h2>
                 
-                {/* Introduction */}
-                <div className="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
-                  <h3 className="text-lg font-semibold text-blue-900 mb-2">Why Learn Through Conversations?</h3>
-                  <p className="text-blue-800">
-                    Conversations are the heart of language learning. They help you understand context, 
-                    cultural nuances, and practical usage of words and phrases in real-life situations.
-                  </p>
-                </div>
+
 
                 {/* Conversation Lessons */}
                 <div className="space-y-8">
@@ -188,14 +177,7 @@ export default function LearnNepaliPage() {
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-8">Nepali Grammar</h2>
                 
-                {/* Introduction */}
-                <div className="bg-purple-50 border-l-4 border-purple-400 p-6 mb-8">
-                  <h3 className="text-lg font-semibold text-purple-900 mb-2">Understanding Nepali Grammar</h3>
-                  <p className="text-purple-800">
-                    Nepali grammar follows a Subject-Object-Verb (SOV) structure, different from English. 
-                    Understanding these fundamental rules will help you construct proper sentences and communicate effectively.
-                  </p>
-                </div>
+
 
                 {/* Grammar Topics */}
                 <div className="space-y-8">
@@ -490,14 +472,7 @@ export default function LearnNepaliPage() {
               <div>
                 <h2 className="text-3xl font-bold text-gray-900 mb-8">Nepali Vocabulary</h2>
 
-                {/* Introduction */}
-                <div className="bg-green-50 border-l-4 border-green-400 p-6 mb-8">
-                  <h3 className="text-lg font-semibold text-green-900 mb-2">Building Your Vocabulary</h3>
-                  <p className="text-green-800">
-                    A strong vocabulary is the foundation of language learning. These essential words will help you
-                    communicate effectively in everyday situations and build confidence in your Nepali conversations.
-                  </p>
-                </div>
+
 
                 {/* Vocabulary Categories */}
                 <div className="space-y-8">
