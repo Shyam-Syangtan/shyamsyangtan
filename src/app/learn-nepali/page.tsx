@@ -6,9 +6,9 @@ export default function LearnNepaliPage() {
   const [activeSection, setActiveSection] = useState('conversations');
 
   const sections = [
-    { id: 'conversations', label: 'Conversations', icon: '💬' },
-    { id: 'grammar', label: 'Grammar', icon: '📚' },
-    { id: 'vocabulary', label: 'Vocabulary', icon: '📖' }
+    { id: 'conversations', label: 'Conversations' },
+    { id: 'grammar', label: 'Grammar' },
+    { id: 'vocabulary', label: 'Vocabulary' }
   ];
 
   return (
@@ -24,14 +24,13 @@ export default function LearnNepaliPage() {
                 <button
                   key={section.id}
                   onClick={() => setActiveSection(section.id)}
-                  className={`py-3 sm:py-4 px-1 sm:px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors flex items-center space-x-1 sm:space-x-2 ${
+                  className={`py-3 sm:py-4 px-1 sm:px-2 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
                     activeSection === section.id
                       ? 'border-blue-500 text-black'
                       : 'border-transparent text-black hover:text-blue-600 hover:border-gray-300'
                   }`}
                 >
-                  <span className="text-base sm:text-lg">{section.icon}</span>
-                  <span>{section.label}</span>
+                  {section.label}
                 </button>
               ))}
             </nav>
@@ -51,7 +50,7 @@ export default function LearnNepaliPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                           <h4 className="font-medium text-black mb-2">English</h4>
-                          <div className="bg-gray-50 p-3 sm:p-4 rounded">
+                          <div className="bg-gray-50 p-3 sm:p-4 rounded text-black">
                             <p><strong>A:</strong> Hello! How are you?</p>
                             <p><strong>B:</strong> I'm fine, thank you. And you?</p>
                             <p><strong>A:</strong> I'm good too. What's your name?</p>
@@ -60,7 +59,7 @@ export default function LearnNepaliPage() {
                         </div>
                         <div>
                           <h4 className="font-medium text-black mb-2">Nepali</h4>
-                          <div className="bg-blue-50 p-3 sm:p-4 rounded">
+                          <div className="bg-blue-50 p-3 sm:p-4 rounded text-black">
                             <p><strong>A:</strong> नमस्ते! तपाईं कस्तो हुनुहुन्छ?</p>
                             <p><strong>B:</strong> म ठिक छु, धन्यवाद। अनि तपाईं?</p>
                             <p><strong>A:</strong> म पनि ठिक छु। तपाईंको नाम के हो?</p>
@@ -87,7 +86,7 @@ export default function LearnNepaliPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                           <h4 className="font-medium text-black mb-2">English</h4>
-                          <div className="bg-gray-50 p-3 sm:p-4 rounded">
+                          <div className="bg-gray-50 p-3 sm:p-4 rounded text-black">
                             <p><strong>Waiter:</strong> What would you like to order?</p>
                             <p><strong>Customer:</strong> I would like dal bhat, please.</p>
                             <p><strong>Waiter:</strong> Would you like some tea?</p>
@@ -96,7 +95,7 @@ export default function LearnNepaliPage() {
                         </div>
                         <div>
                           <h4 className="font-medium text-black mb-2">Nepali</h4>
-                          <div className="bg-blue-50 p-3 sm:p-4 rounded">
+                          <div className="bg-blue-50 p-3 sm:p-4 rounded text-black">
                             <p><strong>वेटर:</strong> तपाईं के अर्डर गर्नुहुन्छ?</p>
                             <p><strong>ग्राहक:</strong> मलाई दालभात चाहिन्छ।</p>
                             <p><strong>वेटर:</strong> चिया खानुहुन्छ?</p>
@@ -123,7 +122,7 @@ export default function LearnNepaliPage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                         <div>
                           <h4 className="font-medium text-black mb-2">English</h4>
-                          <div className="bg-gray-50 p-3 sm:p-4 rounded">
+                          <div className="bg-gray-50 p-3 sm:p-4 rounded text-black">
                             <p><strong>Tourist:</strong> Excuse me, where is the bus station?</p>
                             <p><strong>Local:</strong> Go straight, then turn right.</p>
                             <p><strong>Tourist:</strong> How far is it?</p>
@@ -132,7 +131,7 @@ export default function LearnNepaliPage() {
                         </div>
                         <div>
                           <h4 className="font-medium text-black mb-2">Nepali</h4>
-                          <div className="bg-blue-50 p-3 sm:p-4 rounded">
+                          <div className="bg-blue-50 p-3 sm:p-4 rounded text-black">
                             <p><strong>पर्यटक:</strong> माफ गर्नुहोस्, बस स्टेशन कहाँ छ?</p>
                             <p><strong>स्थानीय:</strong> सिधा जानुहोस्, त्यसपछि दायाँ मोड्नुहोस्।</p>
                             <p><strong>पर्यटक:</strong> कति टाढा छ?</p>
@@ -155,7 +154,7 @@ export default function LearnNepaliPage() {
 
                 {/* Practice Tips */}
                 <div className="mt-8 bg-green-50 border border-green-200 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-green-900 mb-4">💡 Practice Tips</h3>
+                  <h3 className="text-lg font-semibold text-green-900 mb-4">Practice Tips</h3>
                   <ul className="text-green-800 space-y-2">
                     <li>• Practice these conversations with a partner or in front of a mirror</li>
                     <li>• Focus on pronunciation - listen to native speakers when possible</li>
@@ -177,7 +176,7 @@ export default function LearnNepaliPage() {
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
                     <h3 className="text-xl font-semibold text-black mb-4">1. Basic Sentence Structure (SOV)</h3>
                     <div className="space-y-4">
-                      <div className="bg-gray-50 p-4 rounded-lg">
+                      <div className="bg-gray-50 p-4 rounded-lg text-black">
                         <h4 className="font-medium text-black mb-3">English vs Nepali Word Order</h4>
                         <div className="space-y-3">
                           <div>
@@ -196,12 +195,12 @@ export default function LearnNepaliPage() {
                         <div>
                           <h5 className="font-medium text-black mb-2">More Examples:</h5>
                           <div className="space-y-2 text-sm">
-                            <div className="bg-blue-50 p-2 rounded">
+                            <div className="bg-blue-50 p-2 rounded text-black">
                               <p><strong>English:</strong> She reads books</p>
                               <p><strong>Nepali:</strong> उनी किताब पढ्छिन्</p>
                               <p className="text-black">Uni kitab padhchin</p>
                             </div>
-                            <div className="bg-blue-50 p-2 rounded">
+                            <div className="bg-blue-50 p-2 rounded text-black">
                               <p><strong>English:</strong> We drink water</p>
                               <p><strong>Nepali:</strong> हामी पानी पिउँछौं</p>
                               <p className="text-black">Hami pani piuncha</p>
@@ -287,7 +286,7 @@ export default function LearnNepaliPage() {
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
                     <h3 className="text-xl font-semibold text-black mb-4">3. Basic Verb Conjugation</h3>
                     <div className="space-y-4">
-                      <div className="bg-gray-50 p-4 rounded-lg">
+                      <div className="bg-gray-50 p-4 rounded-lg text-black">
                         <h4 className="font-medium text-black mb-3">Present Tense - "To Eat" (खानु - Khanu)</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                           <div>
@@ -337,23 +336,23 @@ export default function LearnNepaliPage() {
                       <div>
                         <h4 className="font-medium text-black mb-3">1-10</h4>
                         <div className="space-y-2 text-sm">
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>१ (1)</span>
                             <span>एक (Ek)</span>
                           </div>
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>२ (2)</span>
                             <span>दुई (Dui)</span>
                           </div>
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>३ (3)</span>
                             <span>तीन (Teen)</span>
                           </div>
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>४ (4)</span>
                             <span>चार (Char)</span>
                           </div>
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>५ (5)</span>
                             <span>पाँच (Panch)</span>
                           </div>
@@ -362,23 +361,23 @@ export default function LearnNepaliPage() {
                       <div>
                         <h4 className="font-medium text-black mb-3">6-10</h4>
                         <div className="space-y-2 text-sm">
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>६ (6)</span>
                             <span>छ (Cha)</span>
                           </div>
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>७ (7)</span>
                             <span>सात (Saat)</span>
                           </div>
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>८ (8)</span>
                             <span>आठ (Aath)</span>
                           </div>
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>९ (9)</span>
                             <span>नौ (Nau)</span>
                           </div>
-                          <div className="flex justify-between bg-gray-50 p-2 rounded">
+                          <div className="flex justify-between bg-gray-50 p-2 rounded text-black">
                             <span>१० (10)</span>
                             <span>दश (Das)</span>
                           </div>
@@ -406,7 +405,7 @@ export default function LearnNepaliPage() {
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
                     <h3 className="text-xl font-semibold text-black mb-4">5. Forming Questions</h3>
                     <div className="space-y-4">
-                      <div className="bg-gray-50 p-4 rounded-lg">
+                      <div className="bg-gray-50 p-4 rounded-lg text-black">
                         <h4 className="font-medium text-black mb-3">Question Words</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-sm">
                           <div className="space-y-2">
@@ -447,7 +446,7 @@ export default function LearnNepaliPage() {
 
                 {/* Study Tips */}
                 <div className="mt-8 bg-purple-50 border border-purple-200 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-purple-900 mb-4">📖 Grammar Study Tips</h3>
+                  <h3 className="text-lg font-semibold text-purple-900 mb-4">Grammar Study Tips</h3>
                   <ul className="text-purple-800 space-y-2">
                     <li>• Start with basic sentence structure - remember SOV (Subject-Object-Verb)</li>
                     <li>• Practice verb conjugations daily with common verbs</li>
@@ -469,28 +468,28 @@ export default function LearnNepaliPage() {
                 <div className="space-y-8">
                   {/* Family Members */}
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-xl font-semibold text-black mb-4">👨‍👩‍👧‍👦 Family Members (परिवार)</h3>
+                    <h3 className="text-xl font-semibold text-black mb-4">Family Members (परिवार)</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div className="space-y-3">
-                        <div className="bg-gray-50 p-3 rounded-lg">
+                        <div className="bg-gray-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Father</span>
                             <span className="text-blue-600">बुवा (Buwa)</span>
                           </div>
                         </div>
-                        <div className="bg-gray-50 p-3 rounded-lg">
+                        <div className="bg-gray-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Mother</span>
                             <span className="text-blue-600">आमा (Aama)</span>
                           </div>
                         </div>
-                        <div className="bg-gray-50 p-3 rounded-lg">
+                        <div className="bg-gray-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Brother</span>
                             <span className="text-blue-600">दाजु/भाइ (Daju/Bhai)</span>
                           </div>
                         </div>
-                        <div className="bg-gray-50 p-3 rounded-lg">
+                        <div className="bg-gray-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Sister</span>
                             <span className="text-blue-600">दिदी/बहिनी (Didi/Bahini)</span>
@@ -498,25 +497,25 @@ export default function LearnNepaliPage() {
                         </div>
                       </div>
                       <div className="space-y-3">
-                        <div className="bg-gray-50 p-3 rounded-lg">
+                        <div className="bg-gray-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Grandfather</span>
                             <span className="text-blue-600">हजुरबुवा (Hajurbuwa)</span>
                           </div>
                         </div>
-                        <div className="bg-gray-50 p-3 rounded-lg">
+                        <div className="bg-gray-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Grandmother</span>
                             <span className="text-blue-600">हजुरआमा (Hajuraama)</span>
                           </div>
                         </div>
-                        <div className="bg-gray-50 p-3 rounded-lg">
+                        <div className="bg-gray-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Son</span>
                             <span className="text-blue-600">छोरा (Chhora)</span>
                           </div>
                         </div>
-                        <div className="bg-gray-50 p-3 rounded-lg">
+                        <div className="bg-gray-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center">
                             <span className="font-medium">Daughter</span>
                             <span className="text-blue-600">छोरी (Chhori)</span>
@@ -533,30 +532,30 @@ export default function LearnNepaliPage() {
 
                   {/* Food & Drinks */}
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-xl font-semibold text-black mb-4">🍽️ Food & Drinks (खाना र पेय)</h3>
+                    <h3 className="text-xl font-semibold text-black mb-4">Food & Drinks (खाना र पेय)</h3>
                     <div className="grid md:grid-cols-3 gap-4">
                       <div className="space-y-2">
                         <h4 className="font-medium text-black mb-2">Staple Foods</h4>
                         <div className="space-y-2 text-sm">
-                          <div className="bg-orange-50 p-2 rounded">
+                          <div className="bg-orange-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Rice</span>
                               <span className="text-orange-600">भात (Bhat)</span>
                             </div>
                           </div>
-                          <div className="bg-orange-50 p-2 rounded">
+                          <div className="bg-orange-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Lentils</span>
                               <span className="text-orange-600">दाल (Dal)</span>
                             </div>
                           </div>
-                          <div className="bg-orange-50 p-2 rounded">
+                          <div className="bg-orange-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Bread</span>
                               <span className="text-orange-600">रोटी (Roti)</span>
                             </div>
                           </div>
-                          <div className="bg-orange-50 p-2 rounded">
+                          <div className="bg-orange-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Vegetables</span>
                               <span className="text-orange-600">तरकारी (Tarkari)</span>
@@ -567,25 +566,25 @@ export default function LearnNepaliPage() {
                       <div className="space-y-2">
                         <h4 className="font-medium text-black mb-2">Fruits</h4>
                         <div className="space-y-2 text-sm">
-                          <div className="bg-red-50 p-2 rounded">
+                          <div className="bg-red-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Apple</span>
                               <span className="text-red-600">स्याउ (Syau)</span>
                             </div>
                           </div>
-                          <div className="bg-red-50 p-2 rounded">
+                          <div className="bg-red-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Banana</span>
                               <span className="text-red-600">केरा (Kera)</span>
                             </div>
                           </div>
-                          <div className="bg-red-50 p-2 rounded">
+                          <div className="bg-red-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Orange</span>
                               <span className="text-red-600">सुन्तला (Suntala)</span>
                             </div>
                           </div>
-                          <div className="bg-red-50 p-2 rounded">
+                          <div className="bg-red-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Mango</span>
                               <span className="text-red-600">आँप (Aamp)</span>
@@ -596,25 +595,25 @@ export default function LearnNepaliPage() {
                       <div className="space-y-2">
                         <h4 className="font-medium text-black mb-2">Drinks</h4>
                         <div className="space-y-2 text-sm">
-                          <div className="bg-blue-50 p-2 rounded">
+                          <div className="bg-blue-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Water</span>
                               <span className="text-blue-600">पानी (Pani)</span>
                             </div>
                           </div>
-                          <div className="bg-blue-50 p-2 rounded">
+                          <div className="bg-blue-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Tea</span>
                               <span className="text-blue-600">चिया (Chiya)</span>
                             </div>
                           </div>
-                          <div className="bg-blue-50 p-2 rounded">
+                          <div className="bg-blue-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Milk</span>
                               <span className="text-blue-600">दूध (Dudh)</span>
                             </div>
                           </div>
-                          <div className="bg-blue-50 p-2 rounded">
+                          <div className="bg-blue-50 p-2 rounded text-black">
                             <div className="flex justify-between">
                               <span>Coffee</span>
                               <span className="text-blue-600">कफी (Coffee)</span>
@@ -632,7 +631,7 @@ export default function LearnNepaliPage() {
 
                   {/* Colors */}
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-xl font-semibold text-black mb-4">🎨 Colors (रंगहरू)</h3>
+                    <h3 className="text-xl font-semibold text-black mb-4">Colors (रंगहरू)</h3>
                     <div className="grid md:grid-cols-4 gap-3">
                       <div className="bg-red-100 border-2 border-red-300 p-3 rounded-lg text-center">
                         <div className="w-8 h-8 bg-red-500 rounded-full mx-auto mb-2"></div>
@@ -684,31 +683,31 @@ export default function LearnNepaliPage() {
 
                   {/* Common Verbs */}
                   <div className="bg-white border border-gray-200 rounded-lg p-6">
-                    <h3 className="text-xl font-semibold text-black mb-4">⚡ Common Verbs (क्रियाहरू)</h3>
+                    <h3 className="text-xl font-semibold text-black mb-4">Common Verbs (क्रियाहरू)</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div className="space-y-3">
-                        <div className="bg-indigo-50 p-3 rounded-lg">
+                        <div className="bg-indigo-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-medium">To eat</span>
                             <span className="text-indigo-600">खानु (Khanu)</span>
                           </div>
                           <p className="text-xs text-indigo-700">म खान्छु (Ma khanchu) - I eat</p>
                         </div>
-                        <div className="bg-indigo-50 p-3 rounded-lg">
+                        <div className="bg-indigo-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-medium">To drink</span>
                             <span className="text-indigo-600">पिउनु (Piunu)</span>
                           </div>
                           <p className="text-xs text-indigo-700">म पिउँछु (Ma piunchu) - I drink</p>
                         </div>
-                        <div className="bg-indigo-50 p-3 rounded-lg">
+                        <div className="bg-indigo-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-medium">To go</span>
                             <span className="text-indigo-600">जानु (Janu)</span>
                           </div>
                           <p className="text-xs text-indigo-700">म जान्छु (Ma janchu) - I go</p>
                         </div>
-                        <div className="bg-indigo-50 p-3 rounded-lg">
+                        <div className="bg-indigo-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-medium">To come</span>
                             <span className="text-indigo-600">आउनु (Aunu)</span>
@@ -717,28 +716,28 @@ export default function LearnNepaliPage() {
                         </div>
                       </div>
                       <div className="space-y-3">
-                        <div className="bg-indigo-50 p-3 rounded-lg">
+                        <div className="bg-indigo-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-medium">To see</span>
                             <span className="text-indigo-600">हेर्नु (Hernu)</span>
                           </div>
                           <p className="text-xs text-indigo-700">म हेर्छु (Ma herchu) - I see</p>
                         </div>
-                        <div className="bg-indigo-50 p-3 rounded-lg">
+                        <div className="bg-indigo-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-medium">To speak</span>
                             <span className="text-indigo-600">बोल्नु (Bolnu)</span>
                           </div>
                           <p className="text-xs text-indigo-700">म बोल्छु (Ma bolchu) - I speak</p>
                         </div>
-                        <div className="bg-indigo-50 p-3 rounded-lg">
+                        <div className="bg-indigo-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-medium">To read</span>
                             <span className="text-indigo-600">पढ्नु (Padhnu)</span>
                           </div>
                           <p className="text-xs text-indigo-700">म पढ्छु (Ma padhchu) - I read</p>
                         </div>
-                        <div className="bg-indigo-50 p-3 rounded-lg">
+                        <div className="bg-indigo-50 p-3 rounded-lg text-black">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-medium">To write</span>
                             <span className="text-indigo-600">लेख्नु (Lekhnu)</span>
@@ -752,7 +751,7 @@ export default function LearnNepaliPage() {
 
                 {/* Vocabulary Tips */}
                 <div className="mt-8 bg-green-50 border border-green-200 rounded-lg p-6">
-                  <h3 className="text-lg font-semibold text-green-900 mb-4">💡 Vocabulary Learning Tips</h3>
+                  <h3 className="text-lg font-semibold text-green-900 mb-4">Vocabulary Learning Tips</h3>
                   <ul className="text-green-800 space-y-2">
                     <li>• Learn 5-10 new words daily and review them regularly</li>
                     <li>• Practice using new vocabulary in simple sentences</li>
