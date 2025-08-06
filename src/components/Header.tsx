@@ -19,11 +19,17 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
             >
               Home
+            </Link>
+            <Link
+              href="/learn-nepali"
+              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
+            >
+              Learn Nepali
             </Link>
             <Link
               href="/about"
@@ -31,8 +37,8 @@ export default function Header() {
             >
               About
             </Link>
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
             >
               Contact
@@ -60,12 +66,19 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="text-gray-700 hover:text-blue-600 block px-3 py-2 text-base font-medium transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
+              </Link>
+              <Link
+                href="/learn-nepali"
+                className="text-gray-700 hover:text-blue-600 block px-3 py-2 text-base font-medium transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Learn Nepali
               </Link>
               <Link
                 href="/about"
@@ -74,8 +87,8 @@ export default function Header() {
               >
                 About
               </Link>
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="text-gray-700 hover:text-blue-600 block px-3 py-2 text-base font-medium transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -88,3 +101,5 @@ export default function Header() {
     </header>
   );
 }
+
+
